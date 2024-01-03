@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{studentController.lstStudents()}"/>
+</f:metadata>
+
+   <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        
+       
+        <title>Student Management</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/common/commonTemplate.xhtml">
+
+            
+
+            <ui:define name="content">
+               
+        
+        <h2><h:outputText value="Product List"></h:outputText></h2>  
+        <h:dataTable value="#{studentController.allStudent}" var="p">  
+<h:column>  
+<f:facet name="header">ID</f:facet>  
+<h:outputText value="#{p.cls}"/>  
+</h:column>  
+<h:column>  
+        <f:facet name="header">Name</f:facet>  
+        <h:outputText value="#{p.firstName}"/>  
+</h:column>  
+<h:column>  
+        <f:facet name="header">Price</f:facet>  
+        <h:outputText value="#{p.lastName}"/>  
+</h:column>  
+    </h:dataTable>  
+        
+                
+             
+   
+        <p:dataTable var="st" value="#{studentController.allStudent}">
+            <p:column headerText="Class">
+                <h:outputText value="#{st.cls}" />
+            </p:column>
+
+            <p:column headerText="Section">
+                <h:outputText value="#{st.sec}" />
+            </p:column>
+
+            <p:column headerText="FirstName">
+                <h:outputText value="#{st.firstName}" />
+            </p:column>
+            
+            <p:column headerText="LastName">
+                <h:outputText value="#{st.lastName}" />
+            </p:column>
+
+        </p:dataTable>
+    
+
+                
+                
+   
+                     
+                     
+                
+          
+            </ui:define>
+
+          
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="./template.xhtml">
+
+   
+    <ui:define name="content">
+       <h:form>
+    <div class="card">
+    <h1>Primefaces Table</h1>
+        <p:dataTable var="tempStudent" value="#{studentDataUtil.students}" >
+            <p:column headerText="First Name">
+                <h:outputText value="#{tempStudent.firstName}" />
+            </p:column>
+
+            <p:column headerText="Last Name">
+                <h:outputText value="#{tempStudent.lastName}" />
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{tempStudent.email}" />
+            </p:column>
+
+            
+        </p:dataTable>
+        
+       
+    </div>
+    <h:commandButton value="Submit" action="#{studentDataUtil.loadStudents}" />
+    <p:commandButton value="pSubmit" actionListener="#{studentDataUtil.primefacesButton()}"></p:commandButton>
+   
+</h:form>
+    </ui:define>
+
+ 
+
+</ui:composition>

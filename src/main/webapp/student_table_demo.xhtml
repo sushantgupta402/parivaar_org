@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+	<title>Student Table Demo</title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/common/commonTemplate.xhtml">
+
+<ui:define name="content">
+	<h3>Student Table Demo</h3>
+
+	<hr/>
+
+	<br/>
+	<h:form>
+    <div class="card">
+    <h1>Primefaces Table</h1>
+        <p:dataTable var="tempStudent" value="#{studentDataUtil.students}" >
+            <p:column headerText="First Name">
+                <h:outputText value="#{tempStudent.firstName}" />
+            </p:column>
+
+            <p:column headerText="Last Name">
+                <h:outputText value="#{tempStudent.lastName}" />
+            </p:column>
+
+            <p:column headerText="Email">
+                <h:outputText value="#{tempStudent.cls}" />
+            </p:column>
+
+            
+        </p:dataTable>
+        
+       
+    </div>
+    <h:commandButton value="Submit" action="#{studentDataUtil.loadStudents}" />
+    <p:commandButton value="pSubmit" actionListener="#{studentDataUtil.primefacesButton()}"></p:commandButton>
+   
+</h:form>
+
+<hr/>
+	
+	<h:dataTable value="#{studentDataUtil.students}" var="tempStudent"
+		border="1">
+		
+		<h:column>
+			<!-- the column header -->
+			<f:facet name="header">First Name</f:facet>
+			
+			<!--  the value for each row -->
+			#{tempStudent.firstName}
+		</h:column>
+
+		<h:column>
+			<!-- the column header -->
+			<f:facet name="header">Last Name</f:facet>
+			
+			<!--  the value for each row -->
+			#{tempStudent.lastName}
+		</h:column>
+
+		<h:column>
+			<!-- the column header -->
+			<f:facet name="header">Email</f:facet>
+			
+			<!--  the value for each row -->
+			#{tempStudent.cls}
+		</h:column>
+
+	</h:dataTable>
+</ui:define>
+
+</ui:composition>
+
+
+</h:body>
+</html>
