@@ -9,6 +9,7 @@ import com.parivaar.org.hb.entity.Supplier;
 import com.parivaar.org.pojo.SupplierPojo;
 import com.parivaar.org.util.HibernateUtil;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
@@ -42,13 +43,23 @@ public class SupplierDaoImpl implements SupplierDao, Serializable {
                 // load the data
                 SupplierPojo pojo = new SupplierPojo();
                 pojo.setId(s.getId());
-                pojo.setAddress(s.getAddress());
-                pojo.setContact(s.getContact());
-                pojo.setContactPerson(s.getContactPerson());
-                pojo.setCreatedOn(s.getCreatedOn());
+                pojo.setSupplierCode(s.getSupplierCode());
                 pojo.setName(s.getName());
+                pojo.setDescription(s.getDescription());
                 pojo.setStatus(s.getStatus());
-                pojo.setUpdatedOn(s.getUpdatedOn());
+                pojo.setLastStatusDate(s.getLastStatusDate());
+                pojo.setSupplierAddedBy(s.getSupplierAddedBy());
+                pojo.setPrimaryAddress(s.getPrimaryAddress());
+                pojo.setSecondaryAddress(s.getSecondaryAddress());
+                pojo.setContactName1(s.getContactName1());
+                pojo.setContactName2(s.getContactName2());
+                pojo.setContact1Phone(s.getContact1Phone());
+                pojo.setContact2Phone(s.getContact2Phone());
+                pojo.setGstNo(s.getGstNo());
+                pojo.setRemarks(s.getRemarks());
+                pojo.setAddedOn(s.getAddedOn());
+                pojo.setFormattedLastStatusDate(new SimpleDateFormat("dd-MM-yyyy").format(s.getLastStatusDate()));
+                pojo.setFormattedaddedOn(new SimpleDateFormat("dd-MM-yyyy").format(s.getAddedOn()));
                 pojos.add(pojo);
 
             }
@@ -66,12 +77,22 @@ public class SupplierDaoImpl implements SupplierDao, Serializable {
         if (null == pojo.getId()) {
             Supplier ent = new Supplier();
             ent.setName(pojo.getName());
-            ent.setAddress(pojo.getAddress());
-            ent.setContact(pojo.getContact());
-            ent.setContactPerson(pojo.getContactPerson());
+            ent.setSupplierCode(pojo.getSupplierCode());
+            ent.setDescription(pojo.getDescription());
+            ent.setLastStatusDate(new java.util.Date());
+            ent.setSupplierAddedBy(pojo.getSupplierAddedBy());
+            ent.setPrimaryAddress(pojo.getPrimaryAddress());
+            ent.setSecondaryAddress(pojo.getSecondaryAddress());
+            ent.setContactName1(pojo.getContactName1());
+            ent.setContactName2(pojo.getContactName2());
+            ent.setContact1Phone(pojo.getContact1Phone());
+            ent.setContact2Phone(pojo.getContact2Phone());
+            ent.setGstNo(pojo.getGstNo());
+            ent.setRemarks(pojo.getRemarks());
+            ent.setAddedOn(new java.util.Date());
+
             ent.setStatus(pojo.getStatus());
-            ent.setCreatedOn(new java.util.Date());
-            ent.setUpdatedOn(new java.util.Date());
+
             Transaction transaction = null;
             try (Session session = sessionObj.openSession()) {
                 // start a transaction
@@ -93,12 +114,21 @@ public class SupplierDaoImpl implements SupplierDao, Serializable {
             try (Session session = sessionObj.openSession()) {
                 Supplier ent = session.load(Supplier.class, pojo.getId());
                 ent.setName(pojo.getName());
-                ent.setAddress(pojo.getAddress());
-                ent.setContact(pojo.getContact());
-                ent.setContactPerson(pojo.getContactPerson());
+                ent.setSupplierCode(pojo.getSupplierCode());
+                ent.setDescription(pojo.getDescription());
+                ent.setLastStatusDate(new java.util.Date());
+                ent.setSupplierAddedBy(pojo.getSupplierAddedBy());
+                ent.setPrimaryAddress(pojo.getPrimaryAddress());
+                ent.setSecondaryAddress(pojo.getSecondaryAddress());
+                ent.setContactName1(pojo.getContactName1());
+                ent.setContactName2(pojo.getContactName2());
+                ent.setContact1Phone(pojo.getContact1Phone());
+                ent.setContact2Phone(pojo.getContact2Phone());
+                ent.setGstNo(pojo.getGstNo());
+                ent.setRemarks(pojo.getRemarks());
+                ent.setAddedOn(new java.util.Date());
+
                 ent.setStatus(pojo.getStatus());
-                //ent.setCreatedOn(new java.util.Date());
-                ent.setUpdatedOn(new java.util.Date());
 
                 // start a transaction
                 transaction = session.beginTransaction();
@@ -168,25 +198,23 @@ public class SupplierDaoImpl implements SupplierDao, Serializable {
     public void deleteSuppliers(List<SupplierPojo> pojos) {
         Transaction transaction = null;
         try (Session session = sessionObj.openSession()) {
-           int len=pojos.size();
-      //<----------------
-     transaction = session.beginTransaction();
+            int len = pojos.size();
+            //<----------------
+            transaction = session.beginTransaction();
 
-    Configuration configuration=new Configuration();
-    configuration.setProperty("hibernate.jdbc.batch_size", "50");
+            Configuration configuration = new Configuration();
+            configuration.setProperty("hibernate.jdbc.batch_size", "50");
 
-    for(int i=0;i<len;i++)
-    {
-        if(i%49==0)
-        {
-            session.flush();
-            session.clear();
-        }
-        Supplier supp=(Supplier)session.get(Supplier.class, Long.valueOf(pojos.get(i).getId()));
-        session.delete(supp);
-    }
-    transaction.commit();
-    
+            for (int i = 0; i < len; i++) {
+                if (i % 49 == 0) {
+                    session.flush();
+                    session.clear();
+                }
+                Supplier supp = (Supplier) session.get(Supplier.class, Long.valueOf(pojos.get(i).getId()));
+                session.delete(supp);
+            }
+            transaction.commit();
+
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();

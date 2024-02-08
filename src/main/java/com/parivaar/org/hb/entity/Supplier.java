@@ -17,50 +17,80 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  *
  * @author Ravinder Singh
  */
 @Entity(name = "Supplier")
-@Table(name = "supplier_list")
+@Table(name = "supplier")
 public class Supplier implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(name = "name")
+
+    @Column(name = "suppliername")
     private String name;
-    
-    private String address;
-    
-    @Column(name = "contact_person")
-    private String contactPerson;
-    
-    @Column(name = "contact")
-    private String contact;
-    
+
+    @Column(name = "suppliercode")
+    private String supplierCode;
+
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "status")
     private int status;
-    
-    @Column(name = "date_created")
-    private Date createdOn;
-      
-    @Column(name = "date_updated")
-    private Date updatedOn;
-    
-   
+
+    @Column(name = "laststausdate")
+    private Date lastStatusDate;
+
+    @Column(name = "supplieraddedby")
+    private String supplierAddedBy;
+
+    @Column(name = "primary_address")
+    private String primaryAddress;
+
+    @Column(name = "secondary_address")
+    private String secondaryAddress;
+
+    @Column(name = "contact_name1")
+    private String contactName1;
+
+    @Column(name = "contact_name2")
+    private String contactName2;
+
+    @Column(name = "contact1_phone")
+    private String contact1Phone;
+
+    @Column(name = "contact2_phone")
+    private String contact2Phone;
+
+    @Column(name = "gst_no")
+    private String gstNo;
+
+    @Column(name = "remarks")
+    private String remarks;
+
+    @Column(name = "added_on")
+    private Date addedOn;
 
     public Supplier() {
     }
 
-    public Supplier(String name, String address, String contactPerson, String contact, int status) {
+
+
+    public Supplier(String name, String supplierCode, String supplierAddedBy, String primaryAddress, String secondaryAddress, String contactName1, String contactName2, String contact1Phone, String contact2Phone, String gstNo, String remarks) {
         this.name = name;
-        this.address = address;
-        this.contactPerson = contactPerson;
-        this.contact = contact;
-        this.status = status;
+        this.supplierCode = supplierCode;
+        this.supplierAddedBy = supplierAddedBy;
+        this.primaryAddress = primaryAddress;
+        this.secondaryAddress = secondaryAddress;
+        this.contactName1 = contactName1;
+        this.contactName2 = contactName2;
+        this.contact1Phone = contact1Phone;
+        this.contact2Phone = contact2Phone;
+        this.gstNo = gstNo;
+        this.remarks = remarks;
     }
 
     public Long getId() {
@@ -79,30 +109,6 @@ public class Supplier implements Serializable {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
     public int getStatus() {
         return status;
     }
@@ -111,23 +117,108 @@ public class Supplier implements Serializable {
         this.status = status;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+    public String getSupplierCode() {
+        return supplierCode;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public String getDescription() {
+        return description;
     }
 
-    public Date getUpdatedOn() {
-        return updatedOn;
+    public Date getLastStatusDate() {
+        return lastStatusDate;
     }
 
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
+    public String getSupplierAddedBy() {
+        return supplierAddedBy;
     }
 
-    
-    
-    
+    public void setSupplierCode(String supplierCode) {
+        this.supplierCode = supplierCode;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLastStatusDate(Date lastStatusDate) {
+        this.lastStatusDate = lastStatusDate;
+    }
+
+    public void setSupplierAddedBy(String supplierAddedBy) {
+        this.supplierAddedBy = supplierAddedBy;
+    }
+
+    public String getPrimaryAddress() {
+        return primaryAddress;
+    }
+
+    public void setPrimaryAddress(String primaryAddress) {
+        this.primaryAddress = primaryAddress;
+    }
+
+    public String getSecondaryAddress() {
+        return secondaryAddress;
+    }
+
+    public void setSecondaryAddress(String secondaryAddress) {
+        this.secondaryAddress = secondaryAddress;
+    }
+
+    public String getContactName1() {
+        return contactName1;
+    }
+
+    public void setContactName1(String contactName1) {
+        this.contactName1 = contactName1;
+    }
+
+    public String getContactName2() {
+        return contactName2;
+    }
+
+    public void setContactName2(String contactName2) {
+        this.contactName2 = contactName2;
+    }
+
+    public String getContact1Phone() {
+        return contact1Phone;
+    }
+
+    public void setContact1Phone(String contact1Phone) {
+        this.contact1Phone = contact1Phone;
+    }
+
+    public String getContact2Phone() {
+        return contact2Phone;
+    }
+
+    public void setContact2Phone(String contact2Phone) {
+        this.contact2Phone = contact2Phone;
+    }
+
+    public String getGstNo() {
+        return gstNo;
+    }
+
+    public void setGstNo(String gstNo) {
+        this.gstNo = gstNo;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Date getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(Date addedOn) {
+        this.addedOn = addedOn;
+    }
+
 }

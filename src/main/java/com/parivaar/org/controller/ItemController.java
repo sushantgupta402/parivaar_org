@@ -171,13 +171,14 @@ public class ItemController implements Serializable {
     }
 
     public void setSelectedItem(ItemPojo selectedItem) {
-                if(selectedItem!=null && selectedItem.getId()!=null){
-            Item item = itemDao.getItemById(selectedItem.getId());
-            Supplier supp=item.getSupplier();
-            this.supplierId=supp.getId();
-            
-        }
-        this.selectedItem = selectedItem;
+        //uncomment below code
+//                if(selectedItem!=null && selectedItem.getId()!=null){
+//            Item item = itemDao.getItemById(selectedItem.getId());
+//            Supplier supp=item.getSupplier();
+//            this.supplierId=supp.getId();
+//            
+//        }
+//        this.selectedItem = selectedItem;
     }
 
     public List<ItemPojo> getSelectedItems() {

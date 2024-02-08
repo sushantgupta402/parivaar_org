@@ -36,39 +36,17 @@ public class itemHistoryDaoImpl implements ItemHistoryDao,Serializable {
         try {
             
 
-            List<ItemHistory> itemHistoryList = sessionObj.openSession().createQuery("SELECT op.username, op.email, orders.p_id, orders.o_id, product.listed_price" +
-"FROM ItemHistory itemHistory, Item item" +
-"WHERE itemHistory.item = item AND item.name = :name").setMaxResults(5).list();
+            Query query = sessionObj.openSession().createNativeQuery("select ih.id,ih.item_id, i.name,i.stock_grams from item_history ih, item_list i where ih.item_id=i.id and i.name=?").setParameter(1, itemName);
+            List<Object[]> rows = query.list();
+            rows.stream().forEach(objects -> {
+			Integer historyId = (Integer) objects[0];
+                        Integer itemId = (Integer) objects[1];
+			String name = (String) objects[2];
+                        Double stock = (Double) objects[3];
+			System.out.println(String.format("Info: Items[ %d, %d,%s,%f ]", historyId,itemId, name,stock));
+		});
+						
 
-//            for (Item i : itemList) {
-//                // load the data
-//                ItemPojo pojo = new ItemPojo();
-//
-//                pojo.setId(i.getId());
-//                pojo.setName(i.getName());
-//                pojo.setDescription(i.getDescription());
-//                pojo.setStatus(i.getStatus());
-//                pojo.setCreatedOn(i.getCreatedOn());
-//                pojo.setUpdatedOn(i.getUpdatedOn());
-//                pojo.setCost(i.getCost());
-//                pojo.setStockInGrams(i.getStock());
-//                Supplier supp = new Supplier();
-//                supp = supplierDao.getSupplierById(i.getSupplier().getId());
-//                SupplierPojo suppPojo = new SupplierPojo();
-//                if (supp != null) {
-//                    suppPojo.setId(supp.getId());
-//                    suppPojo.setName(supp.getName());
-//                    suppPojo.setAddress(supp.getAddress());
-//                    suppPojo.setContactPerson(supp.getContactPerson());
-//                    suppPojo.setContact(supp.getContact());
-//                    suppPojo.setStatus(supp.getStatus());
-//                    suppPojo.setCreatedOn(supp.getCreatedOn());
-//                    suppPojo.setUpdatedOn(supp.getUpdatedOn());
-//                }
-//                pojo.setSupplier(suppPojo);
-//                pojos.add(pojo);
-//
-//            }
         } catch (Exception exceptionObj) {
             exceptionObj.printStackTrace();
         }

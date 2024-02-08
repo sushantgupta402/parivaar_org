@@ -23,32 +23,34 @@ import jakarta.persistence.Id;
  * @author Ravinder
  */
 @Entity
-@Table(name = "item_list")
+@Table(name = "item")
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH},fetch = FetchType.EAGER)
-    @JoinColumn(name = "supplier_id")
-    private Supplier supplier;
+//    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH},fetch = FetchType.EAGER)
+//    @JoinColumn(name = "supplier_id")
+//    private Supplier supplier;
     
-     @Column(name = "name")
+     @Column(name = "item_name")
 	private String name;
+      @Column(name = "item_code")
+	private String code;
      @Column(name = "description")
 	private String description;
-     @Column(name = "cost")
-        private Double cost;
+     @Column(name = "current_inventory_quantity")
+        private Double currentInventoryQuantity;
+     @Column(name = "current_inventory_unit")
+        private Double currentInventoryUnit;
      @Column(name = "status")
-        private Byte status;
-     @Column(name = "date_created")
-     private Date createdOn;
-     @Column(name = "date_updated")
-     private Date updatedOn;
-     @Column(name = "stock_grams")
-     private Double stock;
-
+        private int status;
+     @Column(name = "last_status_date")
+     private Date lastStatusDate;
+     @Column(name = "item_initiated_by")
+     private String itemInitiatedBy;
+    
     public Long getId() {
         return id;
     }
@@ -57,13 +59,13 @@ public class Item implements Serializable {
         this.id = id;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
-    }
+//    public Supplier getSupplier() {
+//        return supplier;
+//    }
+//
+//    public void setSupplier(Supplier supplier) {
+//        this.supplier = supplier;
+//    }
 
     public String getName() {
         return name;
@@ -81,57 +83,69 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public Double getCost() {
-        return cost;
+    public String getCode() {
+        return code;
     }
 
-    public void setCost(Double cost) {
-        this.cost = cost;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public Byte getStatus() {
+    public Double getCurrentInventoryQuantity() {
+        return currentInventoryQuantity;
+    }
+
+    public void setCurrentInventoryQuantity(Double currentInventoryQuantity) {
+        this.currentInventoryQuantity = currentInventoryQuantity;
+    }
+
+    public Double getCurrentInventoryUnit() {
+        return currentInventoryUnit;
+    }
+
+    public void setCurrentInventoryUnit(Double currentInventoryUnit) {
+        this.currentInventoryUnit = currentInventoryUnit;
+    }
+
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+    public Date getLastStatusDate() {
+        return lastStatusDate;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setLastStatusDate(Date lastStatusDate) {
+        this.lastStatusDate = lastStatusDate;
     }
 
-    public Date getUpdatedOn() {
-        return updatedOn;
+    public String getItemInitiatedBy() {
+        return itemInitiatedBy;
     }
 
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
+    public void setItemInitiatedBy(String itemInitiatedBy) {
+        this.itemInitiatedBy = itemInitiatedBy;
     }
 
-    public Double getStock() {
-        return stock;
-    }
+   
 
-    public void setStock(Double stock) {
-        this.stock = stock;
-    }
+   
 
 
-    public Item(Supplier supplier, String name, String description, Double cost, Byte status, Date createdOn, Date updatedOn, Double stock) {
-        this.supplier = supplier;
-        this.name = name;
-        this.description = description;
-        this.cost = cost;
-        this.status = status;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
-        this.stock = stock;
-    }
+//    public Item(Supplier supplier, String name, String description, Double cost, Byte status, Date createdOn, Date updatedOn, Double stock) {
+//        this.supplier = supplier;
+//        this.name = name;
+//        this.description = description;
+//        this.cost = cost;
+//        this.status = status;
+//        this.createdOn = createdOn;
+//        this.updatedOn = updatedOn;
+//        this.stock = stock;
+//    }
 
     public Item() {
     }
@@ -162,5 +176,16 @@ public class Item implements Serializable {
     public String toString() {
         return "com.parivaar.org.hb.entity.Item[ id=" + id + " ]";
     }
+
+    public Item(String name, String description, Double currentInventoryQuantity, Double currentInventoryUnit, int status, String itemInitiatedBy) {
+        this.name = name;
+        this.description = description;
+        this.currentInventoryQuantity = currentInventoryQuantity;
+        this.currentInventoryUnit = currentInventoryUnit;
+        this.status = status;
+        this.itemInitiatedBy = itemInitiatedBy;
+    }
+    
+    
     
 }

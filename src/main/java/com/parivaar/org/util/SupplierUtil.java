@@ -9,38 +9,62 @@ import com.parivaar.org.pojo.SupplierPojo;
 
 /**
  *
- * @author hp
+ * @author Ravinder Singh
  */
 public class SupplierUtil {
-    
-   public static SupplierPojo entityToPojo(Supplier ent){
-       SupplierPojo pojo = new SupplierPojo();
-       pojo.setId(ent.getId());
-       pojo.setName(ent.getName());
-       pojo.setAddress(ent.getAddress());
-       pojo.setContactPerson(ent.getContactPerson());
-       pojo.setContact(ent.getContact());
-       pojo.setStatus(ent.getStatus());
-//       pojo.setCreatedOn(ent.getCreatedOn());
-//       pojo.setUpdatedOn(ent.getUpdatedOn());
-       return pojo;
-       
-   } 
-   
-    public static Supplier pojoToEntity(SupplierPojo pojo){
-       Supplier ent = new Supplier();
-       if(pojo.getId()!= null){
+
+    public static SupplierPojo entityToPojo(Supplier ent) {
+        SupplierPojo pojo = new SupplierPojo();
+        pojo.setId(ent.getId());
+        pojo.setName(ent.getName());
+
+        pojo.setSupplierCode(ent.getSupplierCode());
+
+        pojo.setDescription(ent.getDescription());
+
+        pojo.setLastStatusDate(ent.getLastStatusDate());
+        pojo.setSupplierAddedBy(ent.getSupplierAddedBy());
+
+        pojo.setStatus(ent.getStatus());
+        pojo.setPrimaryAddress(ent.getPrimaryAddress());
+        pojo.setSecondaryAddress(ent.getSecondaryAddress());
+        pojo.setContactName1(ent.getContactName1());
+        pojo.setContactName2(ent.getContactName2());
+        pojo.setContact1Phone(ent.getContact1Phone());
+        pojo.setContact2Phone(ent.getContact2Phone());
+        pojo.setGstNo(ent.getGstNo());
+        pojo.setRemarks(ent.getRemarks());
+        pojo.setAddedOn(ent.getAddedOn());
+
+        return pojo;
+
+    }
+
+    public static Supplier pojoToEntity(SupplierPojo pojo) {
+        Supplier ent = new Supplier();
+        if (pojo.getId() != null) {
             ent.setId(pojo.getId());
-       }
-      
-       ent.setName(pojo.getName());
-       ent.setAddress(pojo.getAddress());
-       ent.setContactPerson(pojo.getContactPerson());
-       ent.setContact(pojo.getContact());
-       ent.setStatus(pojo.getStatus());
-       ent.setCreatedOn(pojo.getCreatedOn());
-       ent.setUpdatedOn(pojo.getUpdatedOn());
-       return ent;
-       
-   } 
+        }
+
+        ent.setName(pojo.getName());
+
+        ent.setSupplierCode(pojo.getSupplierCode());
+        ent.setDescription(pojo.getDescription());
+        ent.setLastStatusDate(new java.util.Date());
+        ent.setSupplierAddedBy(pojo.getSupplierAddedBy());
+
+        ent.setStatus(pojo.getStatus());
+        ent.setPrimaryAddress(pojo.getPrimaryAddress());
+        ent.setSecondaryAddress(pojo.getSecondaryAddress());
+        ent.setContactName1(pojo.getContactName1());
+        ent.setContactName2(pojo.getContactName2());
+        ent.setContact1Phone(pojo.getContact1Phone());
+        ent.setContact2Phone(pojo.getContact2Phone());
+        ent.setGstNo(pojo.getGstNo());
+        ent.setRemarks(pojo.getRemarks());
+        ent.setAddedOn(new java.util.Date());
+
+        return ent;
+
+    }
 }

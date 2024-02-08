@@ -17,42 +17,46 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class SupplierPojo implements Serializable {
-    
+
     private Long id;
-    
-  
+
     private String name;
-    
-    private String address;
-    
-   
-    private String contactPerson;
-    
-   
-    private String contact;
-    
-   
+
+    private String supplierCode;
+
+    private String description;
     private int status;
+
+    private String supplierAddedBy;
+
+    private Date lastStatusDate;
     
-  
-    private Date createdOn;
-      
-  
-    private Date updatedOn;
+    private String formattedLastStatusDate;
+    
+    private String primaryAddress;
+    
+    private String secondaryAddress;
+    
+    private String contactName1;
+    
+    private String contactName2;
+    
+    private String contact1Phone;
+    
+    private String contact2Phone;
+    
+    private String gstNo;
+    
+    private String remarks;
+    
+    private Date addedOn;
+    
+    private String formattedaddedOn;
+
 
     public SupplierPojo() {
     }
 
-    public SupplierPojo(Long id, String name, String address, String contactPerson, String contact, int status, Date createdOn, Date updatedOn) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.contactPerson = contactPerson;
-        this.contact = contact;
-        this.status = status;
-        this.createdOn = createdOn;
-        this.updatedOn = updatedOn;
-    }
 
     public Long getId() {
         return id;
@@ -70,29 +74,6 @@ public class SupplierPojo implements Serializable {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(String contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
 
     public int getStatus() {
         return status;
@@ -102,22 +83,127 @@ public class SupplierPojo implements Serializable {
         this.status = status;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+
+    public String getSupplierCode() {
+        return supplierCode;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setSupplierCode(String supplierCode) {
+        this.supplierCode = supplierCode;
     }
 
-    public Date getUpdatedOn() {
-        return updatedOn;
+    public String getDescription() {
+        return description;
     }
 
-    public void setUpdatedOn(Date updatedOn) {
-        this.updatedOn = updatedOn;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSupplierAddedBy() {
+        return supplierAddedBy;
+    }
+
+    public void setSupplierAddedBy(String supplierAddedBy) {
+        this.supplierAddedBy = supplierAddedBy;
+    }
+
+    public Date getLastStatusDate() {
+        return lastStatusDate;
+    }
+
+    public void setLastStatusDate(Date lastStatusDate) {
+        this.lastStatusDate = lastStatusDate;
+    }
+
+    public String getFormattedLastStatusDate() {
+        return formattedLastStatusDate;
+    }
+
+    public void setFormattedLastStatusDate(String formattedLastStatusDate) {
+        this.formattedLastStatusDate = formattedLastStatusDate;
+    }
+
+    public String getPrimaryAddress() {
+        return primaryAddress;
+    }
+
+    public void setPrimaryAddress(String primaryAddress) {
+        this.primaryAddress = primaryAddress;
+    }
+
+    public String getSecondaryAddress() {
+        return secondaryAddress;
+    }
+
+    public void setSecondaryAddress(String secondaryAddress) {
+        this.secondaryAddress = secondaryAddress;
+    }
+
+    public String getContactName1() {
+        return contactName1;
+    }
+
+    public void setContactName1(String contactName1) {
+        this.contactName1 = contactName1;
+    }
+
+    public String getContactName2() {
+        return contactName2;
+    }
+
+    public void setContactName2(String contactName2) {
+        this.contactName2 = contactName2;
+    }
+
+    public String getContact1Phone() {
+        return contact1Phone;
+    }
+
+    public void setContact1Phone(String contact1Phone) {
+        this.contact1Phone = contact1Phone;
+    }
+
+    public String getContact2Phone() {
+        return contact2Phone;
+    }
+
+    public void setContact2Phone(String contact2Phone) {
+        this.contact2Phone = contact2Phone;
+    }
+
+    public String getGstNo() {
+        return gstNo;
+    }
+
+    public void setGstNo(String gstNo) {
+        this.gstNo = gstNo;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Date getAddedOn() {
+        return addedOn;
+    }
+
+    public void setAddedOn(Date addedOn) {
+        this.addedOn = addedOn;
+    }
+
+    public String getFormattedaddedOn() {
+        return formattedaddedOn;
+    }
+
+    public void setFormattedaddedOn(String formattedaddedOn) {
+        this.formattedaddedOn = formattedaddedOn;
     }
     
     
-    
+
 }
