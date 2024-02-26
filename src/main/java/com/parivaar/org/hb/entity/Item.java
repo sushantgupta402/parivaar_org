@@ -38,18 +38,24 @@ public class Item implements Serializable {
 	private String name;
       @Column(name = "item_code")
 	private String code;
-     @Column(name = "description")
-	private String description;
+     @Column(name = "description1")
+	private String descriptionOne;
+      @Column(name = "description2")
+	private String descriptionTwo;
+       @Column(name = "description3")
+	private String descriptionThree;
      @Column(name = "current_inventory_quantity")
         private Double currentInventoryQuantity;
      @Column(name = "current_inventory_unit")
         private Double currentInventoryUnit;
      @Column(name = "status")
         private int status;
-     @Column(name = "last_status_date")
-     private Date lastStatusDate;
-     @Column(name = "item_initiated_by")
-     private String itemInitiatedBy;
+     @Column(name = "active_from_date")
+     private Date activeFromDate;
+     @Column(name = "active_till_date")
+     private Date activeTillDate;
+     @Column(name = "quantity_measured_in")
+	private String quantityMeasuredIn;
     
     public Long getId() {
         return id;
@@ -75,13 +81,7 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
+   
 
     public String getCode() {
         return code;
@@ -115,21 +115,7 @@ public class Item implements Serializable {
         this.status = status;
     }
 
-    public Date getLastStatusDate() {
-        return lastStatusDate;
-    }
-
-    public void setLastStatusDate(Date lastStatusDate) {
-        this.lastStatusDate = lastStatusDate;
-    }
-
-    public String getItemInitiatedBy() {
-        return itemInitiatedBy;
-    }
-
-    public void setItemInitiatedBy(String itemInitiatedBy) {
-        this.itemInitiatedBy = itemInitiatedBy;
-    }
+ 
 
    
 
@@ -177,14 +163,68 @@ public class Item implements Serializable {
         return "com.parivaar.org.hb.entity.Item[ id=" + id + " ]";
     }
 
-    public Item(String name, String description, Double currentInventoryQuantity, Double currentInventoryUnit, int status, String itemInitiatedBy) {
+    public String getDescriptionOne() {
+        return descriptionOne;
+    }
+
+    public void setDescriptionOne(String descriptionOne) {
+        this.descriptionOne = descriptionOne;
+    }
+
+    public String getDescriptionTwo() {
+        return descriptionTwo;
+    }
+
+    public void setDescriptionTwo(String descriptionTwo) {
+        this.descriptionTwo = descriptionTwo;
+    }
+
+    public String getDescriptionThree() {
+        return descriptionThree;
+    }
+
+    public void setDescriptionThree(String descriptionThree) {
+        this.descriptionThree = descriptionThree;
+    }
+
+    public Date getActiveFromDate() {
+        return activeFromDate;
+    }
+
+    public void setActiveFromDate(Date activeFromDate) {
+        this.activeFromDate = activeFromDate;
+    }
+
+    public Date getActiveTillDate() {
+        return activeTillDate;
+    }
+
+    public void setActiveTillDate(Date activeTillDate) {
+        this.activeTillDate = activeTillDate;
+    }
+
+    public String getQuantityMeasuredIn() {
+        return quantityMeasuredIn;
+    }
+
+    public void setQuantityMeasuredIn(String quantityMeasuredIn) {
+        this.quantityMeasuredIn = quantityMeasuredIn;
+    }
+    
+    
+
+    public Item(String name, String code, String descriptionOne, String descriptionTwo, String descriptionThree, Double currentInventoryQuantity, Double currentInventoryUnit, int status) {
         this.name = name;
-        this.description = description;
+        this.code = code;
+        this.descriptionOne = descriptionOne;
+        this.descriptionTwo = descriptionTwo;
+        this.descriptionThree = descriptionThree;
         this.currentInventoryQuantity = currentInventoryQuantity;
         this.currentInventoryUnit = currentInventoryUnit;
         this.status = status;
-        this.itemInitiatedBy = itemInitiatedBy;
     }
+
+    
     
     
     

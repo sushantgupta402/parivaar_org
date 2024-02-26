@@ -47,7 +47,7 @@
                                      rowKey="#{itm.id}" paginator="true" rows="5" rowSelectMode="add" paginatorPosition="bottom">
                             <f:facet name="header">
                                 <div class="products-table-header">
-                                    <span style="font-weight: bold">Suppliers</span>
+                                    <span style="font-weight: bold">Items</span>
                                     <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
                                         <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Search" />
                                     </span>
@@ -61,39 +61,38 @@
                             <p:ajax event="toggleSelect" update=":form:delete-products-button" />
 
                             <p:column selectionMode="multiple" exportable="false"></p:column>
+                            
+                             <p:column headerText="Code" sortBy="#{itm.itemCode}" filterBy="#{itm.itemCode}">
+                                <h:outputText value="#{itm.itemCode}" />
+                            </p:column>
 
-                            <p:column headerText="Name" sortBy="#{itm.name}" filterBy="#{itm.name}">
-                                <h:outputText value="#{itm.name}" />
+                            <p:column headerText="Name" sortBy="#{itm.itemName}" filterBy="#{itm.itemName}">
+                                <h:outputText value="#{itm.itemName}" />
                             </p:column>
-                            <p:column headerText="Description" sortBy="#{itm.description}" filterBy="#{itm.description}">
-                                <h:outputText value="#{itm.description}" />
+                           
+                            <p:column headerText="Description1/Remarks1" sortBy="#{itm.descriptionOne}" filterBy="#{itm.descriptionOne}">
+                                <h:outputText value="#{itm.descriptionOne}" />
                             </p:column>
-                            <p:column headerText="Cost" sortBy="#{itm.cost}"
-                                      filterBy="#{itm.cost}">
+                            <p:column headerText="Description2/Remarks2" sortBy="#{itm.descriptionTwo}" filterBy="#{itm.descriptionTwo}">
+                                <h:outputText value="#{itm.descriptionTwo}" />
+                            </p:column>
+                            <p:column headerText="Current Inventory" sortBy="#{itm.currentInventoryQuantity}"
+                                      filterBy="#{itm.currentInventoryQuantity}">
                                 <h:outputText 
-                                    value="#{itm.cost}" />
+                                    value="#{itm.currentInventoryQuantity}" />
                             </p:column>
-                            <p:column headerText="Stock(Gms)" sortBy="#{itm.stockInGrams}"
-                                      filterBy="#{itm.stockInGrams}">
+                            <p:column headerText="Unit" sortBy="#{itm.quantityMeasuredIn}"
+                                      filterBy="#{itm.quantityMeasuredIn}">
                                 <h:outputText 
-                                    value="#{itm.stockInGrams}" />
+                                    value="#{itm.quantityMeasuredIn}" />
                             </p:column>
+                            
                             <p:column headerText="Status" sortBy="#{itm.status}"
                                       filterBy="#{itm.status}">
                                 <h:outputText 
                                     value="#{itm.status}" converter="statusOutput" />
                             </p:column>
-                            <p:column headerText="CreateDate">
-                                <h:outputText value="#{itm.createdOn}">
-<!--                                    <f:convertDateTime pattern="MM/dd/yyyy" type="localDate"/>-->
-                                </h:outputText>
-                            </p:column>
-                            <p:column headerText="Supplier" sortBy="#{itm.supplier.name}"
-                                      filterBy="#{itm.supplier.name}">
-                                <h:outputText value="#{itm.supplier.name}">
-
-                                </h:outputText>
-                            </p:column>
+                           
                             <p:column exportable="false">
                                 <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
                                                  oncomplete="PF('manageProductDialog').show()"
@@ -117,46 +116,49 @@
                             <p:outputPanel id="manage-product-content" class="ui-fluid">
                                 <p:outputPanel rendered="#{not empty itemController.selectedItem}">
 
-                                    <div class="field">
-                                        <p:outputLabel for="name">Name</p:outputLabel>
-                                        <p:inputText id="name" value="#{itemController.selectedItem.name}" required="true" />
-                                    </div>
-                                    <div class="field">
-                                        <p:outputLabel for="description">Description</p:outputLabel>
-                                        <p:inputText id="description" value="#{itemController.selectedItem.description}" required="true" />
-                                    </div>
-                                    <div class="field">
-                                        <p:outputLabel for="cost">Cost</p:outputLabel>
-                                        <p:inputText id="cost" value="#{itemController.selectedItem.cost}" required="true" />
-                                    </div>
-                                    <div class="field">
-                                        <p:outputLabel for="stock">Stock(Gms)</p:outputLabel>
-                                        <p:inputText id="stock" value="#{itemController.selectedItem.stockInGrams}" required="true" />
-                                    </div>
-                                    <div class="field">
-                                        <p:outputLabel >Status</p:outputLabel>
+                                     <p:panelGrid columns="4"
+                                                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                                 layout="grid"
+                                                 styleClass="ui-panelgrid-blank ui-fluid"
+                                                 style="border:0px none; background-color:transparent;">
+
+
+
+                                        <p:outputLabel for="@next" value="Item Code"/>
+                                        <p:inputText id="code" value="#{itemController.selectedItem.itemCode}" required="true" />
+
+                                        <p:outputLabel for="@next" value="Item Name"/>
+                                        <p:inputText id="name" value="#{itemController.selectedItem.itemName}" required="true" />
+                                         <p:outputLabel for="@next" value="Description1/Remarks1"/>
+                                         <p:inputTextarea rows="4" value="#{itemController.selectedItem.descriptionOne}"/>
+                                         <p:outputLabel for="@next" value="Description2/Remarks2"/>
+                                         <p:inputTextarea rows="4" value="#{itemController.selectedItem.descriptionTwo}"/>
+                                         <p:outputLabel for="@next" value="Description3/Remarks3"/>
+                                         <p:inputTextarea rows="4" value="#{itemController.selectedItem.descriptionThree}"/>
+                                          <p:outputLabel for="@next" value="Current Inventory Quantity"/>
+                                          <p:inputText id="quantity" value="#{itemController.selectedItem.currentInventoryQuantity}" required="true" />
+
+                                         <p:outputLabel for="@next" value="Quantity Measured In"/>
+                                         <p:inputText id="measuredIn" value="#{itemController.selectedItem.quantityMeasuredIn}" required="true" />
+
+                                        <p:outputLabel for="@next" value="Status"/>
                                         <p:selectOneRadio id="statusline" value="#{itemController.selectedItem.status}" layout="lineDirection">
-                                        <f:selectItem itemLabel="Active" itemValue="1"/>
-                                        <f:selectItem itemLabel="InActive" itemValue="0"/>
-           
+                                            <f:selectItem itemLabel="Active" itemValue="1"/>
+                                            <f:selectItem itemLabel="InActive" itemValue="0"/>
+
                                         </p:selectOneRadio>
 
-
-                                    </div>
-                                    <div class="field col-12 md:col-4">
-                <p:outputLabel for="@next" value="Supplier"/>
-               <p:selectOneMenu id="advanced" value="#{itemController.supplierId}" 
-                                panelStyle="width:180px" 
-                               converter="#{supplierConverter}">
-
-                    <f:selectItems value="#{itemController.suppliers}" var="supp"
-                                   itemLabel="#{supp.name}" itemValue="#{supp.id}" />
+                                            <p:outputLabel for="@next" value="Active From Date"/>
+                                            <p:datePicker id="date1" value="#{itemController.selectedItem.activeFromDate}" />
+                                             <p:outputLabel for="@next" value="Active Till Date"/>
+                                             <p:datePicker id="date2" value="#{itemController.selectedItem.activeTillDate}" />
+                                            
 
 
-                   
-                </p:selectOneMenu>
 
-            </div>
+                                       
+                                    </p:panelGrid>
+
 
                                 </p:outputPanel>
                             </p:outputPanel>
