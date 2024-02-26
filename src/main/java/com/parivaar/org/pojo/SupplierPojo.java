@@ -18,87 +18,45 @@ import javax.inject.Named;
 @SessionScoped
 public class SupplierPojo implements Serializable {
 
-   
     private Long id;
-
 
     private String name;
 
-    
     private String supplierCode;
 
-   
-    private String descriptionOne;
-    
-  
-    private String descriptionTwo;
-    
-  
-    private String descriptionThree;
-    
-   
-    private String addressLine1;
-
-
-    private String addressline2;
-    
-
-    private String addressline3;
-      
-
-    private String primaryPhone;
-
-   
-    private String alternatePhone;
-    
-  
-    private String email;
-    
- 
-    private String contactName1;
-     
-    
-    private String contact1Phone;
-       
-     
-    private String contact1AlternatePhone;
-         
-      
-    private String contactName2;
-
-
-    private String contact2Phone;
-   
-         
-    private String contact2AlternatePhone;
-           
-          
-    private String gstNo;
-   
-
-  
+    private String description;
     private int status;
 
-   
-    private Date activeFromDate;
+    private String supplierAddedBy;
+
+    private Date lastStatusDate;
     
-     
-    private Date activeTillDate;
-
-
+    private String formattedLastStatusDate;
+    
+    private String primaryAddress;
+    
+    private String secondaryAddress;
+    
+    private String contactName1;
+    
+    private String contactName2;
+    
+    private String contact1Phone;
+    
+    private String contact2Phone;
+    
+    private String gstNo;
+    
+    private String remarks;
+    
     private Date addedOn;
     
-     private String city;
-     
-      private String state;
-      
-       private String pinCode;
-       
-       private String activeFromDateFormatted;
-       private String activeTillDateFormatted;
+    private String formattedaddedOn;
+
 
     public SupplierPojo() {
     }
+
 
     public Long getId() {
         return id;
@@ -116,6 +74,16 @@ public class SupplierPojo implements Serializable {
         this.name = name;
     }
 
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+
     public String getSupplierCode() {
         return supplierCode;
     }
@@ -124,76 +92,52 @@ public class SupplierPojo implements Serializable {
         this.supplierCode = supplierCode;
     }
 
-    public String getDescriptionOne() {
-        return descriptionOne;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionOne(String descriptionOne) {
-        this.descriptionOne = descriptionOne;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDescriptionTwo() {
-        return descriptionTwo;
+    public String getSupplierAddedBy() {
+        return supplierAddedBy;
     }
 
-    public void setDescriptionTwo(String descriptionTwo) {
-        this.descriptionTwo = descriptionTwo;
+    public void setSupplierAddedBy(String supplierAddedBy) {
+        this.supplierAddedBy = supplierAddedBy;
     }
 
-    public String getDescriptionThree() {
-        return descriptionThree;
+    public Date getLastStatusDate() {
+        return lastStatusDate;
     }
 
-    public void setDescriptionThree(String descriptionThree) {
-        this.descriptionThree = descriptionThree;
+    public void setLastStatusDate(Date lastStatusDate) {
+        this.lastStatusDate = lastStatusDate;
     }
 
-    public String getAddressLine1() {
-        return addressLine1;
+    public String getFormattedLastStatusDate() {
+        return formattedLastStatusDate;
     }
 
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
+    public void setFormattedLastStatusDate(String formattedLastStatusDate) {
+        this.formattedLastStatusDate = formattedLastStatusDate;
     }
 
-    public String getAddressline2() {
-        return addressline2;
+    public String getPrimaryAddress() {
+        return primaryAddress;
     }
 
-    public void setAddressline2(String addressline2) {
-        this.addressline2 = addressline2;
+    public void setPrimaryAddress(String primaryAddress) {
+        this.primaryAddress = primaryAddress;
     }
 
-    public String getAddressline3() {
-        return addressline3;
+    public String getSecondaryAddress() {
+        return secondaryAddress;
     }
 
-    public void setAddressline3(String addressline3) {
-        this.addressline3 = addressline3;
-    }
-
-    public String getPrimaryPhone() {
-        return primaryPhone;
-    }
-
-    public void setPrimaryPhone(String primaryPhone) {
-        this.primaryPhone = primaryPhone;
-    }
-
-    public String getAlternatePhone() {
-        return alternatePhone;
-    }
-
-    public void setAlternatePhone(String alternatePhone) {
-        this.alternatePhone = alternatePhone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSecondaryAddress(String secondaryAddress) {
+        this.secondaryAddress = secondaryAddress;
     }
 
     public String getContactName1() {
@@ -204,28 +148,20 @@ public class SupplierPojo implements Serializable {
         this.contactName1 = contactName1;
     }
 
-    public String getContact1Phone() {
-        return contact1Phone;
-    }
-
-    public void setContact1Phone(String contact1Phone) {
-        this.contact1Phone = contact1Phone;
-    }
-
-    public String getContact1AlternatePhone() {
-        return contact1AlternatePhone;
-    }
-
-    public void setContact1AlternatePhone(String contact1AlternatePhone) {
-        this.contact1AlternatePhone = contact1AlternatePhone;
-    }
-
     public String getContactName2() {
         return contactName2;
     }
 
     public void setContactName2(String contactName2) {
         this.contactName2 = contactName2;
+    }
+
+    public String getContact1Phone() {
+        return contact1Phone;
+    }
+
+    public void setContact1Phone(String contact1Phone) {
+        this.contact1Phone = contact1Phone;
     }
 
     public String getContact2Phone() {
@@ -236,14 +172,6 @@ public class SupplierPojo implements Serializable {
         this.contact2Phone = contact2Phone;
     }
 
-    public String getContact2AlternatePhone() {
-        return contact2AlternatePhone;
-    }
-
-    public void setContact2AlternatePhone(String contact2AlternatePhone) {
-        this.contact2AlternatePhone = contact2AlternatePhone;
-    }
-
     public String getGstNo() {
         return gstNo;
     }
@@ -252,28 +180,12 @@ public class SupplierPojo implements Serializable {
         this.gstNo = gstNo;
     }
 
-    public int getStatus() {
-        return status;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public Date getActiveFromDate() {
-        return activeFromDate;
-    }
-
-    public void setActiveFromDate(Date activeFromDate) {
-        this.activeFromDate = activeFromDate;
-    }
-
-    public Date getActiveTillDate() {
-        return activeTillDate;
-    }
-
-    public void setActiveTillDate(Date activeTillDate) {
-        this.activeTillDate = activeTillDate;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     public Date getAddedOn() {
@@ -284,47 +196,14 @@ public class SupplierPojo implements Serializable {
         this.addedOn = addedOn;
     }
 
-    public String getCity() {
-        return city;
+    public String getFormattedaddedOn() {
+        return formattedaddedOn;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setFormattedaddedOn(String formattedaddedOn) {
+        this.formattedaddedOn = formattedaddedOn;
     }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPinCode() {
-        return pinCode;
-    }
-
-    public void setPinCode(String pinCode) {
-        this.pinCode = pinCode;
-    }
-
-    public String getActiveFromDateFormatted() {
-        return activeFromDateFormatted;
-    }
-
-    public String getActiveTillDateFormatted() {
-        return activeTillDateFormatted;
-    }
-
-    public void setActiveFromDateFormatted(String activeFromDateFormatted) {
-        this.activeFromDateFormatted = activeFromDateFormatted;
-    }
-
-    public void setActiveTillDateFormatted(String activeTillDateFormatted) {
-        this.activeTillDateFormatted = activeTillDateFormatted;
-    }
-
-
-   
+    
+    
 
 }

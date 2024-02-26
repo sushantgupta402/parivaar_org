@@ -19,44 +19,35 @@ import javax.inject.Named;
 public class ItemPojo implements Serializable {
     
         private Long id;
-        //private SupplierPojo supplier;
-	private String itemName;
-        private String itemCode;
-	private String descriptionOne;
-        private String descriptionTwo;
-        private String descriptionThree;
-        private Double currentInventoryQuantity;
-         private Double currentInventoryUnit;
-        private int status;
-        private Date activeFromDate;
-        private Date activeTillDate;
-        private String quantityMeasuredIn;
-       
+        private SupplierPojo supplier;
+	private String name;
+	private String description;
+        private Double cost;
+        private Byte status;
+        private Date createdOn;
+        private Date updatedOn;
+        private Double stockInGrams;
 
     public ItemPojo() {
     }
 
-    public ItemPojo(String itemName, String itemCode, String descriptionOne, String descriptionTwo, String descriptionThree, Double currentInventoryQuantity, Double currentInventoryUnit, int status) {
-        this.itemName = itemName;
-        this.itemCode = itemCode;
-        this.descriptionOne = descriptionOne;
-        this.descriptionTwo = descriptionTwo;
-        this.descriptionThree = descriptionThree;
-        this.currentInventoryQuantity = currentInventoryQuantity;
-        this.currentInventoryUnit = currentInventoryUnit;
+
+
+    public ItemPojo(SupplierPojo supplier, String name, String description, Double cost, Byte status, Date createdOn, Date updatedOn, Double stockInGrams) {
+        this.supplier = supplier;
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
         this.status = status;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
+        this.stockInGrams = stockInGrams;
     }
 
     @Override
     public String toString() {
-        return "ItemPojo{" + "itemCode=" + itemCode + '}';
+        return "ItemPojo{" + "supplier=" + supplier + ", name=" + name + ", description=" + description + ", status=" + status + '}';
     }
-
-
-
-    
-
-   
 
     @Override
     public int hashCode() {
@@ -77,37 +68,29 @@ public class ItemPojo implements Serializable {
             return false;
         }
         final ItemPojo other = (ItemPojo) obj;
-        if (!Objects.equals(this.itemName, other.itemName)) {
+        if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.itemCode, other.itemCode)) {
+        if (!Objects.equals(this.description, other.description)) {
             return false;
         }
-        if (!Objects.equals(this.descriptionOne, other.descriptionOne)) {
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.descriptionTwo, other.descriptionTwo)) {
+        if (!Objects.equals(this.supplier, other.supplier)) {
             return false;
         }
-        if (!Objects.equals(this.descriptionThree, other.descriptionThree)) {
-            return false;
-        }
-        if (!Objects.equals(this.currentInventoryQuantity, other.currentInventoryQuantity)) {
-            return false;
-        }
-        if (!Objects.equals(this.currentInventoryUnit, other.currentInventoryUnit)) {
+        if (!Objects.equals(this.cost, other.cost)) {
             return false;
         }
         if (!Objects.equals(this.status, other.status)) {
             return false;
         }
-        if (!Objects.equals(this.activeFromDate, other.activeFromDate)) {
+        if (!Objects.equals(this.createdOn, other.createdOn)) {
             return false;
         }
-        return Objects.equals(this.activeTillDate, other.activeTillDate);
+        return Objects.equals(this.updatedOn, other.updatedOn);
     }
-
-   
     
     
 
@@ -119,95 +102,70 @@ public class ItemPojo implements Serializable {
         this.id = id;
     }
 
-    public String getItemName() {
-        return itemName;
+    public SupplierPojo getSupplier() {
+        return supplier;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setSupplier(SupplierPojo supplier) {
+        this.supplier = supplier;
     }
 
-    public String getItemCode() {
-        return itemCode;
+    public String getName() {
+        return name;
     }
 
-    public void setItemCode(String itemCode) {
-        this.itemCode = itemCode;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getDescriptionOne() {
-        return descriptionOne;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDescriptionOne(String descriptionOne) {
-        this.descriptionOne = descriptionOne;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDescriptionTwo() {
-        return descriptionTwo;
+    public Double getCost() {
+        return cost;
     }
 
-    public void setDescriptionTwo(String descriptionTwo) {
-        this.descriptionTwo = descriptionTwo;
+    public void setCost(Double cost) {
+        this.cost = cost;
     }
 
-    public String getDescriptionThree() {
-        return descriptionThree;
-    }
-
-    public void setDescriptionThree(String descriptionThree) {
-        this.descriptionThree = descriptionThree;
-    }
-
-    public Double getCurrentInventoryQuantity() {
-        return currentInventoryQuantity;
-    }
-
-    public void setCurrentInventoryQuantity(Double currentInventoryQuantity) {
-        this.currentInventoryQuantity = currentInventoryQuantity;
-    }
-
-    public Double getCurrentInventoryUnit() {
-        return currentInventoryUnit;
-    }
-
-    public void setCurrentInventoryUnit(Double currentInventoryUnit) {
-        this.currentInventoryUnit = currentInventoryUnit;
-    }
-
-    public int getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
-    public Date getActiveFromDate() {
-        return activeFromDate;
+    public Date getCreatedOn() {
+        return createdOn;
     }
 
-    public void setActiveFromDate(Date activeFromDate) {
-        this.activeFromDate = activeFromDate;
+    public void setCreatedOn(Date createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public Date getActiveTillDate() {
-        return activeTillDate;
+    public Date getUpdatedOn() {
+        return updatedOn;
     }
 
-    public void setActiveTillDate(Date activeTillDate) {
-        this.activeTillDate = activeTillDate;
+    public void setUpdatedOn(Date updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
-    public String getQuantityMeasuredIn() {
-        return quantityMeasuredIn;
+    public Double getStockInGrams() {
+        return stockInGrams;
     }
 
-    public void setQuantityMeasuredIn(String quantityMeasuredIn) {
-        this.quantityMeasuredIn = quantityMeasuredIn;
+    public void setStockInGrams(Double stockInGrams) {
+        this.stockInGrams = stockInGrams;
     }
-
-   
+        
         
     
 }

@@ -32,13 +32,13 @@ public class StatusOutput implements Converter {
     @Override
     public String getAsString(FacesContext context,
         UIComponent component, Object value) {
-        Integer inputVal = null;
+        Byte inputVal = null;
     if ( value == null ) {
         return "";
     }
     // value must be of a type that can be cast to a String.
     try {
-        inputVal = (Integer)value;
+        inputVal = (Byte)value;
     } catch (ClassCastException ce) {
         FacesMessage errMsg = new FacesMessage(CONVERSION_ERROR_MESSAGE_ID);
         FacesContext.getCurrentInstance().addMessage(null, errMsg);

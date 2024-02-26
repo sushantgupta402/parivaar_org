@@ -35,82 +35,63 @@ public class Supplier implements Serializable {
     @Column(name = "suppliercode")
     private String supplierCode;
 
-    @Column(name = "description1")
-    private String descriptionOne;
-    
-    @Column(name = "description2")
-    private String descriptionTwo;
-    
-    @Column(name = "description3")
-    private String descriptionThree;
-    
-     @Column(name = "address_line1")
-    private String addressLine1;
-
-    @Column(name = "address_line2")
-    private String addressline2;
-    
-      @Column(name = "address_line3")
-    private String addressline3;
-      
-       @Column(name = "primary_phone")
-    private String primaryPhone;
-
-    @Column(name = "alternate_phone")
-    private String alternatePhone;
-    
-    @Column(name = "email")
-    private String email;
-    
-     @Column(name = "contact_name1")
-    private String contactName1;
-     
-       @Column(name = "contact1_phone")
-    private String contact1Phone;
-       
-         @Column(name = "contact1_alternate_phone")
-    private String contact1AlternatePhone;
-         
-          @Column(name = "contact_name2")
-    private String contactName2;
-
-   @Column(name = "contact2_phone")
-    private String contact2Phone;
-   
-           @Column(name = "contact2_alternate_phone")
-    private String contact2AlternatePhone;
-           
-            @Column(name = "gst_no")
-    private String gstNo;
-   
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "status")
     private int status;
 
-    @Column(name = "active_from_date")
-    private Date activeFromDate;
-    
-     @Column(name = "active_till_date")
-    private Date activeTillDate;
+    @Column(name = "laststausdate")
+    private Date lastStatusDate;
+
+    @Column(name = "supplieraddedby")
+    private String supplierAddedBy;
+
+    @Column(name = "primary_address")
+    private String primaryAddress;
+
+    @Column(name = "secondary_address")
+    private String secondaryAddress;
+
+    @Column(name = "contact_name1")
+    private String contactName1;
+
+    @Column(name = "contact_name2")
+    private String contactName2;
+
+    @Column(name = "contact1_phone")
+    private String contact1Phone;
+
+    @Column(name = "contact2_phone")
+    private String contact2Phone;
+
+    @Column(name = "gst_no")
+    private String gstNo;
+
+    @Column(name = "remarks")
+    private String remarks;
 
     @Column(name = "added_on")
     private Date addedOn;
-    
-     @Column(name = "city")
-    private String city;
-     
-      @Column(name = "state")
-    private String state;
-      
-       @Column(name = "pincode")
-    private String pinCode;
 
     public Supplier() {
     }
 
 
 
-    
+    public Supplier(String name, String supplierCode, String supplierAddedBy, String primaryAddress, String secondaryAddress, String contactName1, String contactName2, String contact1Phone, String contact2Phone, String gstNo, String remarks) {
+        this.name = name;
+        this.supplierCode = supplierCode;
+        this.supplierAddedBy = supplierAddedBy;
+        this.primaryAddress = primaryAddress;
+        this.secondaryAddress = secondaryAddress;
+        this.contactName1 = contactName1;
+        this.contactName2 = contactName2;
+        this.contact1Phone = contact1Phone;
+        this.contact2Phone = contact2Phone;
+        this.gstNo = gstNo;
+        this.remarks = remarks;
+    }
 
     public Long getId() {
         return id;
@@ -140,82 +121,48 @@ public class Supplier implements Serializable {
         return supplierCode;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getLastStatusDate() {
+        return lastStatusDate;
+    }
+
+    public String getSupplierAddedBy() {
+        return supplierAddedBy;
+    }
+
     public void setSupplierCode(String supplierCode) {
         this.supplierCode = supplierCode;
     }
-    
-    
 
-    public String getDescriptionOne() {
-        return descriptionOne;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public void setDescriptionOne(String descriptionOne) {
-        this.descriptionOne = descriptionOne;
+    public void setLastStatusDate(Date lastStatusDate) {
+        this.lastStatusDate = lastStatusDate;
     }
 
-    public String getDescriptionTwo() {
-        return descriptionTwo;
+    public void setSupplierAddedBy(String supplierAddedBy) {
+        this.supplierAddedBy = supplierAddedBy;
     }
 
-    public void setDescriptionTwo(String descriptionTwo) {
-        this.descriptionTwo = descriptionTwo;
+    public String getPrimaryAddress() {
+        return primaryAddress;
     }
 
-    public String getDescriptionThree() {
-        return descriptionThree;
+    public void setPrimaryAddress(String primaryAddress) {
+        this.primaryAddress = primaryAddress;
     }
 
-    public void setDescriptionThree(String descriptionThree) {
-        this.descriptionThree = descriptionThree;
+    public String getSecondaryAddress() {
+        return secondaryAddress;
     }
 
-    public String getAddressLine1() {
-        return addressLine1;
-    }
-
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
-    }
-
-    public String getAddressline2() {
-        return addressline2;
-    }
-
-    public void setAddressline2(String addressline2) {
-        this.addressline2 = addressline2;
-    }
-
-    public String getAddressline3() {
-        return addressline3;
-    }
-
-    public void setAddressline3(String addressline3) {
-        this.addressline3 = addressline3;
-    }
-
-    public String getPrimaryPhone() {
-        return primaryPhone;
-    }
-
-    public void setPrimaryPhone(String primaryPhone) {
-        this.primaryPhone = primaryPhone;
-    }
-
-    public String getAlternatePhone() {
-        return alternatePhone;
-    }
-
-    public void setAlternatePhone(String alternatePhone) {
-        this.alternatePhone = alternatePhone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSecondaryAddress(String secondaryAddress) {
+        this.secondaryAddress = secondaryAddress;
     }
 
     public String getContactName1() {
@@ -226,28 +173,20 @@ public class Supplier implements Serializable {
         this.contactName1 = contactName1;
     }
 
-    public String getContact1Phone() {
-        return contact1Phone;
-    }
-
-    public void setContact1Phone(String contact1Phone) {
-        this.contact1Phone = contact1Phone;
-    }
-
-    public String getContact1AlternatePhone() {
-        return contact1AlternatePhone;
-    }
-
-    public void setContact1AlternatePhone(String contact1AlternatePhone) {
-        this.contact1AlternatePhone = contact1AlternatePhone;
-    }
-
     public String getContactName2() {
         return contactName2;
     }
 
     public void setContactName2(String contactName2) {
         this.contactName2 = contactName2;
+    }
+
+    public String getContact1Phone() {
+        return contact1Phone;
+    }
+
+    public void setContact1Phone(String contact1Phone) {
+        this.contact1Phone = contact1Phone;
     }
 
     public String getContact2Phone() {
@@ -258,14 +197,6 @@ public class Supplier implements Serializable {
         this.contact2Phone = contact2Phone;
     }
 
-    public String getContact2AlternatePhone() {
-        return contact2AlternatePhone;
-    }
-
-    public void setContact2AlternatePhone(String contact2AlternatePhone) {
-        this.contact2AlternatePhone = contact2AlternatePhone;
-    }
-
     public String getGstNo() {
         return gstNo;
     }
@@ -274,20 +205,12 @@ public class Supplier implements Serializable {
         this.gstNo = gstNo;
     }
 
-    public Date getActiveFromDate() {
-        return activeFromDate;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setActiveFromDate(Date activeFromDate) {
-        this.activeFromDate = activeFromDate;
-    }
-
-    public Date getActiveTillDate() {
-        return activeTillDate;
-    }
-
-    public void setActiveTillDate(Date activeTillDate) {
-        this.activeTillDate = activeTillDate;
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     public Date getAddedOn() {
@@ -297,31 +220,5 @@ public class Supplier implements Serializable {
     public void setAddedOn(Date addedOn) {
         this.addedOn = addedOn;
     }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getPinCode() {
-        return pinCode;
-    }
-
-    public void setPinCode(String pinCode) {
-        this.pinCode = pinCode;
-    }
-
-  
 
 }

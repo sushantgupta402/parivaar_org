@@ -40,11 +40,10 @@
                                 </p:commandButton>
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right">
-                                
-                                <p:commandButton value="XLSX" styleClass="mr-2 mb-2">
-                                    <p:dataExporter type="xlsxstream" target="dt-products" fileName="supplier_list"/>
+                                <p:fileUpload mode="simple" skinSimple="true" label="Import" chooseIcon="pi pi-download" />
+                                <p:commandButton value="Export" icon="pi pi-upload" styleClass="ui-button-help" ajax="false">
+                                    <p:dataExporter type="pdf" target="dt-products" fileName="products" />
                                 </p:commandButton>
-                               
                             </p:toolbarGroup>
                         </p:toolbar>
 
@@ -66,102 +65,29 @@
                             <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button" />
                             <p:ajax event="toggleSelect" update=":form:delete-products-button" />
 
-                            <p:column selectionMode="multiple" exportable="true"></p:column>
+                            <p:column selectionMode="multiple" exportable="false"></p:column>
                             <p:column headerText="Code" sortBy="#{supp.supplierCode}" filterBy="#{supp.supplierCode}">
-                                <h:outputText value="#{supp.supplierCode}"  />
+                                <h:outputText value="#{supp.supplierCode}" />
                             </p:column>
 
                             <p:column headerText="Name" sortBy="#{supp.name}" filterBy="#{supp.name}">
                                 <h:outputText value="#{supp.name}" />
                             </p:column>
-
-                           
-                            <p:column  visible="false" exportable="true" headerText="AddressLine1">
-                                <h:outputText value="#{supp.addressLine1}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="AddressLine2">
-                                <h:outputText value="#{supp.addressline2}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="AddressLine3">
-                                <h:outputText value="#{supp.addressline3}" />
-                            </p:column>
-
-
-                            <p:column headerText="Primary City" sortBy="#{supp.city}" filterBy="#{supp.city}">
-                                <h:outputText value="#{supp.city}" />
-                            </p:column>
-
-                            <p:column  visible="false" exportable="true" headerText="State">
-                                <h:outputText value="#{supp.state}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Pincode">
-                                <h:outputText value="#{supp.pinCode}" />
-                            </p:column>
-
-                            <p:column headerText="Primary Phone Number" sortBy="#{supp.primaryPhone}" filterBy="#{supp.primaryPhone}">
-                                <h:outputText value="#{supp.primaryPhone}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="AlternatePhone">
-                                <h:outputText value="#{supp.alternatePhone}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Email">
-                                <h:outputText value="#{supp.email}" />
-                            </p:column>
-                            
-                             <p:column headerText="Description1/Remarks1" sortBy="#{supp.descriptionOne}" filterBy="#{supp.descriptionOne}">
-                                <h:outputText value="#{supp.descriptionOne}" />
-                            </p:column>
-
-                            <p:column  visible="false" exportable="true" headerText="Description2/Remarks2">
-                                <h:outputText value="#{supp.descriptionTwo}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Description3/Remarks3">
-                                <h:outputText value="#{supp.descriptionThree}" />
-                            </p:column> 
-
-                            <p:column  visible="false" exportable="true" headerText="ContactName1">
-                                <h:outputText value="#{supp.contactName1}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Contact1Phone">
-                                <h:outputText value="#{supp.contact1Phone}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Contact1AlternatePhone">
-                                <h:outputText value="#{supp.contact1AlternatePhone}" />
-                            </p:column>
-
-                            <p:column  visible="false" exportable="true" headerText="ContactName2">
-                                <h:outputText value="#{supp.contactName2}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Contact2Phone">
-                                <h:outputText value="#{supp.contact2Phone}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Contact2AlternatePhone">
-                                <h:outputText value="#{supp.contact2AlternatePhone}" />
-                            </p:column>
-
-
-
-
-
-
-                            <p:column  visible="false" exportable="true" headerText="GSTNo.">
-                                <h:outputText value="#{supp.gstNo}" />
-                            </p:column>
-
                             <p:column headerText="Status" sortBy="#{supp.status}"
                                       filterBy="#{supp.status}">
                                 <h:outputText 
-                                    value="#{supp.status}" converter="statusOutput" />
+                                    value="#{supp.status}" />
                             </p:column>
 
-                            <p:column  visible="false" exportable="true" headerText="ActiveFromDate">
-                                <h:outputText value="#{supp.activeFromDateFormatted}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="ActiveTillDate">
-                                <h:outputText value="#{supp.activeTillDateFormatted}" />
+                            <p:column headerText="LastStatusDate">
+                                <h:outputText value="#{supp.formattedLastStatusDate}" />
                             </p:column>
 
 
+
+                            <p:column headerText="Supplier AddedBy" sortBy="#{supp.supplierAddedBy}" filterBy="#{supp.supplierAddedBy}">
+                                <h:outputText value="#{supp.supplierAddedBy}" />
+                            </p:column>
 
 
 
@@ -185,10 +111,10 @@
                     <h:form id="dialogs">
                         <p:growl id="messagesDialog" showDetail="true" />
                         <p:dialog header="Supplier Details" showEffect="fade" modal="true" widgetVar="manageProductDialog"
-                                  responsive="true" draggable="true" resizable="true" >
+                                  responsive="false" >
                             <p:outputPanel id="manage-product-content" class="ui-fluid">
                                 <p:outputPanel rendered="#{not empty supplierController.selectedSupplier}">
-                                    <p:panelGrid columns="6"
+                                    <p:panelGrid columns="4"
                                                  columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
                                                  layout="grid"
                                                  styleClass="ui-panelgrid-blank ui-fluid"
@@ -197,62 +123,10 @@
 
 
                                         <p:outputLabel for="@next" value="Supplier Code"/>
-                                        <p:inputText id="code" value="#{supplierController.selectedSupplier.supplierCode}" required="true" maxlength="6" disabled="{#}" />
+                                        <p:inputText id="code" value="#{supplierController.selectedSupplier.supplierCode}" required="true" />
 
                                         <p:outputLabel for="@next" value="Supplier Name"/>
                                         <p:inputText id="name" value="#{supplierController.selectedSupplier.name}" required="true" />
-                                        <p:outputLabel />
-                                        <p:outputLabel />
-
-                                        <p:outputLabel for="@next" value="Description1/Remarks1"/>
-                                        <p:inputTextarea rows="4" value="#{supplierController.selectedSupplier.descriptionOne}"/>
-                                        <p:outputLabel for="@next" value="Description2/Remarks2"/>
-                                        <p:inputTextarea rows="4" value="#{supplierController.selectedSupplier.descriptionTwo}"/>
-                                        <p:outputLabel for="@next" value="Description3/Remarks3"/>
-                                        <p:inputTextarea rows="4" value="#{supplierController.selectedSupplier.descriptionThree}"/>
-
-                                        <p:outputLabel for="@next" value="AddressLine1"/>
-                                        <p:inputTextarea rows="4" value="#{supplierController.selectedSupplier.addressLine1}"/>
-                                        <p:outputLabel for="@next" value="AddressLine2"/>
-                                        <p:inputTextarea rows="4" value="#{supplierController.selectedSupplier.addressline2}"/>
-                                        <p:outputLabel for="@next" value="AddressLine3"/>
-                                        <p:inputTextarea rows="4" value="#{supplierController.selectedSupplier.addressline3}"/>
-
-                                        <p:outputLabel for="@next" value="City"/>
-                                        <p:inputText id="city" value="#{supplierController.selectedSupplier.city}" required="true" />
-                                        <p:outputLabel for="@next" value="State"/>
-                                        <p:inputText id="state" value="#{supplierController.selectedSupplier.state}" required="true" />
-                                        <p:outputLabel for="@next" value="PinCode"/>
-                                        <p:inputText id="pin" value="#{supplierController.selectedSupplier.pinCode}" required="true" />
-
-                                        <p:outputLabel for="@next" value="Primary Phone"/>
-                                        <p:inputText id="primaryPhone" value="#{supplierController.selectedSupplier.primaryPhone}" required="true" />
-                                        <p:outputLabel for="@next" value="Alternate Phone"/>
-                                        <p:inputText id="altphone" value="#{supplierController.selectedSupplier.alternatePhone}" required="true" />
-                                        <p:outputLabel for="@next" value="Email"/>
-                                        <p:inputText id="email" value="#{supplierController.selectedSupplier.email}" required="true" />
-
-                                        <p:outputLabel for="@next" value="Contact Person 1 Name"/>
-                                        <p:inputText id="contName1" value="#{supplierController.selectedSupplier.contactName1}" required="true" />
-
-                                        <p:outputLabel for="@next" value="Contact 1 Phone"/>
-                                        <p:inputText id="cont1Phone" value="#{supplierController.selectedSupplier.contact1Phone}" required="true" />
-
-                                        <p:outputLabel for="@next" value="Contact 1 Alternate Phone"/>
-                                        <p:inputText id="cont1altPhone" value="#{supplierController.selectedSupplier.contact1AlternatePhone}" required="true" />
-
-                                        <p:outputLabel for="@next" value="Contact Person 2 Name"/>
-                                        <p:inputText id="contName2" value="#{supplierController.selectedSupplier.contactName2}" required="true" />
-
-                                        <p:outputLabel for="@next" value="Contact 2 Phone"/>
-                                        <p:inputText id="cont2Phone" value="#{supplierController.selectedSupplier.contact2Phone}" required="true" />
-                                        <p:outputLabel for="@next" value="Contact 2 Alternate Phone"/>
-                                        <p:inputText id="cont2altPhone" value="#{supplierController.selectedSupplier.contact2AlternatePhone}" required="true" />
-
-
-                                        <p:outputLabel for="@next" value="GST No."/>
-                                        <p:inputText id="gstNo" value="#{supplierController.selectedSupplier.gstNo}" required="true" />
-
 
                                         <p:outputLabel for="@next" value="Status"/>
                                         <p:selectOneRadio id="statusline" value="#{supplierController.selectedSupplier.status}" layout="lineDirection">
@@ -261,12 +135,33 @@
 
                                         </p:selectOneRadio>
 
-                                        <p:outputLabel for="@next" value="Active From Date"/>
-                                        <p:datePicker id="date1" value="#{supplierController.selectedSupplier.activeFromDate}" />
-                                        <p:outputLabel for="@next" value="Active Till Date"/>
-                                        <p:datePicker id="date2" value="#{supplierController.selectedSupplier.activeTillDate}" />
+                                        <p:outputLabel for="@next" value="SupplierAddedBy"/>
+                                        <p:inputText id="suppAddedBy" value="#{supplierController.selectedSupplier.supplierAddedBy}" required="true" />
 
 
+
+                                        <p:outputLabel for="@next" value="Description"/>
+                                        <p:inputTextarea rows="4" value="#{supplierController.selectedSupplier.description}"/>
+
+                                        <p:outputLabel for="@next" value="PrimaryAddress"/>
+                                        <p:inputText id="primAdd" value="#{supplierController.selectedSupplier.primaryAddress}" required="true" />
+
+                                        <p:outputLabel for="@next" value="SecondaryAddress"/>
+                                        <p:inputText id="secAdd" value="#{supplierController.selectedSupplier.secondaryAddress}" required="true" />
+
+                                        <p:outputLabel for="@next" value="ContactName1"/>
+                                        <p:inputText id="contName1" value="#{supplierController.selectedSupplier.contactName1}" required="true" />
+
+                                        <p:outputLabel for="@next" value="ContactName2"/>
+                                        <p:inputText id="contName2" value="#{supplierController.selectedSupplier.contactName2}" required="true" />
+                                        <p:outputLabel for="@next" value="Contact1Phone"/>
+                                        <p:inputText id="cont1Phone" value="#{supplierController.selectedSupplier.contact1Phone}" required="true" />
+                                        <p:outputLabel for="@next" value="Contact2Phone"/>
+                                        <p:inputText id="cont2Phone" value="#{supplierController.selectedSupplier.contact2Phone}" required="true" />
+                                        <p:outputLabel for="@next" value="GST No."/>
+                                        <p:inputText id="gstNo" value="#{supplierController.selectedSupplier.gstNo}" required="true" />
+                                        <p:outputLabel for="@next" value="Remarks"/>
+                                        <p:inputTextarea id="remarks" value="#{supplierController.selectedSupplier.remarks}" required="true" />
                                     </p:panelGrid>
 
 
