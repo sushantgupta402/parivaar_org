@@ -49,7 +49,7 @@ public class ItemPojo implements Serializable {
 
     @Override
     public String toString() {
-        return "ItemPojo{" + "itemCode=" + itemCode + '}';
+        return itemName+ " " + itemCode ;
     }
 
 

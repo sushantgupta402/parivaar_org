@@ -16,7 +16,9 @@
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
         <mapping class="com.parivaar.org.hb.entity.Supplier"/>   
         <mapping class="com.parivaar.org.hb.entity.Item"/>  
-        <mapping class="com.parivaar.org.hb.entity.ItemHistory"/>  
+        <mapping class="com.parivaar.org.hb.entity.Transactions"/>
+        <mapping class="com.parivaar.org.hb.entity.TransactionTypes"/> 
+        <mapping class="com.parivaar.org.hb.entity.States"/>        
         
     </session-factory>
 </hibernate-configuration>

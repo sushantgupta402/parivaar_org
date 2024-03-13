@@ -16,6 +16,9 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -56,6 +59,10 @@ public class Item implements Serializable {
      private Date activeTillDate;
      @Column(name = "quantity_measured_in")
 	private String quantityMeasuredIn;
+     
+     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "item")
+     private List<Transactions> transactions =new ArrayList<>();
+      
     
     public Long getId() {
         return id;
@@ -113,6 +120,14 @@ public class Item implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public List<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
     }
 
  

@@ -84,7 +84,7 @@ public class SupplierController implements Serializable {
      public void deleteSupplier() {
         supplierDao.deleteSupplier(selectedSupplier);
         lstSuppliers();
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Product Removed"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Supplier Removed"));
        // PrimeFaces.current().executeScript("PF('deleteProductDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }

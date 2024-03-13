@@ -4,24 +4,17 @@
  */
 package com.parivaar.org.util;
 
-import com.parivaar.org.dao.SupplierDao;
-import com.parivaar.org.dao.impl.CountryService;
-import com.parivaar.org.dao.impl.SupplierDaoImpl;
-import com.parivaar.org.hb.entity.Supplier;
-import com.parivaar.org.pojo.Country;
-import com.parivaar.org.pojo.SupplierPojo;
+
 import java.io.Serializable;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.spi.CDI;
+
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
+
 import javax.inject.Named;
 
 /**

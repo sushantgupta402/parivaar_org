@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+        <title>Transaction Management</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/common/commonTemplate.xhtml">
+
+
+
+            <ui:define name="content">
+
+                <div class="card crud-demo">
+                    <h:form id="form">
+                        <p:growl id="messages" showDetail="true" />
+
+                        <p:toolbar>
+                            <p:toolbarGroup>
+                                <p:commandButton value="New" icon="pi pi-plus" actionListener="#{transactionController.openNew()}"
+                                                 update=":dialogs:manage-product-content"
+                                                 styleClass="ui-button-success" style="margin-right: .5rem">
+                                    <!--<p:resetInput target=":dialogs:manage-product-content" />-->
+                                </p:commandButton>
+                                <p:commandButton id="delete-products-button" value="#{transactionController.deleteButtonMessage}"
+                                                 icon="pi pi-trash" actionListener="#{transactionController.deleteSelectedTransactions()}"
+                                                 styleClass="ui-button-danger" disabled="#{!transactionController.hasSelectedTransactions()}" update="@this">
+                                    <p:confirm header="Confirmation" message="Delete the selected products?"
+                                               icon="pi pi-exclamation-triangle" />
+                                </p:commandButton>
+                            </p:toolbarGroup>
+                            <p:toolbarGroup align="right">
+
+                                <p:commandButton value="XLSX" styleClass="mr-2 mb-2">
+                                    <p:dataExporter type="xlsxstream" target="dt-products" fileName="transaction_list"/>
+                                </p:commandButton>
+
+                            </p:toolbarGroup>
+                        </p:toolbar>
+
+                        <p:dataTable id="dt-products" widgetVar="dtProducts" var="txn" value="#{transactionController.allTransactions}"
+                                     reflow="true" styleClass="products-table" selection="#{transactionController.selectedTransactions}"
+                                     rowKey="#{txn.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                            <f:facet name="header">
+                                <div class="products-table-header">
+                                    <span style="font-weight: bold">Suppliers</span>
+                                    <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                                        <p:inputText id="globalFilter" onkeyup="PF('dtProducts').filter()" placeholder="Search" />
+                                    </span>
+                                </div>
+                            </f:facet>
+
+                            <p:ajax event="rowSelect" update=":form:delete-products-button" />
+                            <p:ajax event="rowUnselect" update=":form:delete-products-button" />
+                            <p:ajax event="rowSelectCheckbox" update=":form:delete-products-button" />
+                            <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button" />
+                            <p:ajax event="toggleSelect" update=":form:delete-products-button" />
+
+                            <p:column selectionMode="multiple" exportable="true"></p:column>
+                            <p:column headerText="Transaction ID" sortBy="#{txn.transactionId}" filterBy="#{txn.transactionId}">
+                                <h:outputText value="#{txn.transactionId}"  />
+                            </p:column>
+
+                            <p:column headerText="Item Name" sortBy="#{txn.itemName}" filterBy="#{txn.itemName}">
+                                <h:outputText value="#{txn.itemName}" />
+                            </p:column>
+
+
+                            <p:column  visible="false" exportable="true" headerText="Transaction Type">
+                                <h:outputText value="#{txn.transactionType}" />
+                            </p:column>
+                            <p:column  visible="false" exportable="true" headerText="Branch">
+                                <h:outputText value="#{txn.branch}" />
+                            </p:column>
+                            <p:column  visible="false" exportable="true" headerText="Date">
+                                <h:outputText value="#{txn.formattedDate}" />
+                            </p:column>
+
+
+                            <p:column headerText="Time" sortBy="#{txn.time}" filterBy="#{txn.time}">
+                                <h:outputText value="#{txn.time}" />
+                            </p:column>
+
+
+
+
+                            <p:column exportable="false">
+                                <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
+                                                 oncomplete="PF('manageProductDialog').show()"
+                                                 styleClass="edit-button rounded-button ui-button-success" process="@this">
+                                    <f:setPropertyActionListener value="#{txn}" target="#{transactionController.selectedTransaction}" />
+                                    <p:resetInput target=":dialogs:manage-product-content" />
+                                </p:commandButton>
+                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                                 process="@this"
+                                                 oncomplete="PF('deleteProductDialog').show()">
+                                    <f:setPropertyActionListener value="#{txn}" target="#{transactionController.selectedTransaction}" />
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+
+                    <h:form id="dialogs">
+                        <p:growl id="messagesDialog" showDetail="true" />
+                        <p:dialog header="Transaction Details" showEffect="fade" modal="true" widgetVar="manageProductDialog"
+                                  responsive="true" draggable="true" resizable="true" >
+                            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                                <p:outputPanel rendered="#{not empty transactionController.selectedTransaction}">
+                                    <p:panelGrid columns="6"
+                                                 columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+                                                 layout="grid"
+                                                 styleClass="ui-panelgrid-blank ui-fluid"
+                                                 style="border:0px none; background-color:transparent;">
+
+
+
+
+                                        <p:outputLabel for="@next" value="Transaction ID"/>
+                                        <p:inputText id="code" value="#{transactionController.selectedTransaction.transactionId}" readonly="true" required="true"  />
+
+                                        <p:outputLabel for="itemname" value="Item "/>
+                                        <p:selectOneMenu id="itemname" value="#{transactionController.item}" style="width:150px">
+                                            <p:ajax listener="#{transactionController.onItemSelection}" update="closingbalance openingbalance unit" />
+                                            <f:selectItem itemLabel="Select Item" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{transactionController.items}" var="itm" itemLabel="#{itm.itemName}" itemValue="#{itm.id}"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="transactionTypes" value="Transaction: "/>
+                                        <p:selectOneMenu id="transactionTypes" value="#{transactionController.transactionType}" style="width:150px" >
+                                            <p:ajax listener="#{transactionController.onTransactionSelection()}" update="dayusage nightusage" />
+                                            <f:selectItem itemLabel="Select Transaction" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{transactionController.transactionTypes}" var="txn" itemLabel="#{txn.name}" itemValue="#{txn.id}"  />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="branch" value="Branch "/>
+                                        <p:selectOneMenu id="branch" value="#{transactionController.state}" style="width:150px">
+
+                                            <f:selectItem itemLabel="Select State" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{transactionController.states}" var="st" itemLabel="#{st.name}" itemValue="#{st.id}" />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="date" value="Date"/>
+                                        <p:datePicker id="date" value="#{transactionController.selectedTransaction.transactionDate}" />
+
+
+                                        <p:outputLabel for="time" value="Time:"/>
+                                        <p:selectOneMenu id="time" value="#{transactionController.selectedTransaction.time}" style="width:150px">
+
+                                            <f:selectItem itemLabel="Select Time" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItem itemLabel="Morning" itemValue="morning"/>
+                                            <f:selectItem itemLabel="Day" itemValue="day"/>
+                                            <f:selectItem itemLabel="Evening" itemValue="evening"/>
+                                            <f:selectItem itemLabel="Night" itemValue="night"/>
+
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel for="quantity" value="Item Quantity"/>
+                                        <p:inputText id="quantity" value="#{transactionController.selectedTransaction.itemQuantity}">
+                                            <p:ajax event="keyup" update="closingbalance" listener="#{transactionController.handleQuantityEvent()}"/>
+                                        </p:inputText>
+
+                                        <p:outputLabel for="unit" value="Unit"/>
+                                        <p:inputText id="unit" value="#{transactionController.selectedTransaction.item.quantityMeasuredIn}"  readonly="true"  />
+
+
+
+
+                                        <p:outputLabel for="openingbalance" value="Opening Balance:"/>
+                                        <p:inputText id="openingbalance" value="#{transactionController.selectedTransaction.openingBalance}"  readonly="true"  />
+                                        <p:outputLabel for="closingbalance" value="Closing Balance:"/>
+                                        <p:inputText id="closingbalance" value="#{transactionController.selectedTransaction.closingBalance}"  readonly="true"  />
+
+                                        <p:outputLabel for="@next" value="Details/Remarks1"/>
+                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details1}"/>
+                                        <p:outputLabel for="@next" value="Details/Remarks2"/>
+                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details2}"/> 
+                                         <p:outputLabel for="@next" value="Details/Remarks3"/>
+                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details3}"/>
+                                        
+                                        
+                                       
+                                        <p:outputLabel for="dayusage" value="Day Usage"/>
+                                        <p:inputText id="dayusage" value="#{transactionController.selectedTransaction.dayUsage}" readonly="#{ not transactionController.usageFieldAvailable}" >
+                                            <p:ajax event="mouseout"  listener="#{transactionController.handleDayNightUsageEvent()}"/>
+                                        </p:inputText>
+                                        <p:outputLabel for="nightusage" value="Night Usage"/>
+                                        <p:inputText id="nightusage" value="#{transactionController.selectedTransaction.nightUsage}" readonly="#{ not transactionController.usageFieldAvailable}" >
+                                          
+                                            <p:ajax event="mouseout"  listener="#{transactionController.handleDayNightUsageEvent()}"/>
+                                        </p:inputText>
+                                        
+                                           <p:outputLabel for="supplier" value="Supplier "/>
+                                           <p:selectOneMenu id="supplier" value="#{transactionController.selectedSupplier}" style="width:150px">
+                                           
+                                            <f:selectItem itemLabel="Select Supplier" itemValue="" noSelectionOption="true"/>
+                                            <f:selectItems value="#{transactionController.suppliers}" var="supp" itemLabel="#{supp.name}" itemValue="#{supp.id}"/>
+                                        </p:selectOneMenu>
+                                           
+                                        <p:outputLabel for="costperunit" value="Per Unit Cost"/>
+                                        <p:inputText id="costperunit" value="#{transactionController.selectedTransaction.perUnitCost}">
+                                            <p:ajax event="keyup" update="totalcost" listener="#{transactionController.handlePerUnitCostEvent()}"/>
+                                        </p:inputText>
+                                           
+                                            <p:outputLabel for="totalcost" value="Total Cost:"/>
+                                            <p:inputText id="totalcost" value="#{transactionController.selectedTransaction.totalCost}"  readonly="true"  />
+
+
+
+                                    </p:panelGrid>
+
+
+
+
+                                </p:outputPanel>
+                            </p:outputPanel>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{transactionController.saveTransaction()}"
+                                                 update="manage-product-content" process="manage-product-content @this" />
+                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                                 class="ui-button-secondary" type="button" />
+                            </f:facet>
+                        </p:dialog>
+
+                        <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                                         message="Delete the product?" header="Confirm" severity="warn">
+                            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{supplierController.deleteSupplier()}"
+                                             process="@this" update=":form:delete-products-button"
+                                             oncomplete="PF('deleteProductDialog').hide()" />
+                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                             onclick="PF('deleteProductDialog').hide()" />
+                        </p:confirmDialog>
+
+                        <p:confirmDialog global="true" showEffect="fade" width="300">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                             icon="pi pi-times" />
+                        </p:confirmDialog>
+                    </h:form>
+                </div>
+
+
+
+
+
+
+            </ui:define>
+
+
+        </ui:composition>
+    </h:body>
+</html>

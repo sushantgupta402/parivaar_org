@@ -197,7 +197,7 @@
 
 
                                         <p:outputLabel for="@next" value="Supplier Code"/>
-                                        <p:inputText id="code" value="#{supplierController.selectedSupplier.supplierCode}" required="true" maxlength="6" disabled="{#}" />
+                                        <p:inputText id="code" value="#{supplierController.selectedSupplier.supplierCode}" readonly="#{not empty supplierController.selectedSupplier.supplierCode}" required="true" maxlength="6" disabled="{#}" />
 
                                         <p:outputLabel for="@next" value="Supplier Name"/>
                                         <p:inputText id="name" value="#{supplierController.selectedSupplier.name}" required="true" />
@@ -228,9 +228,19 @@
                                         <p:outputLabel for="@next" value="Primary Phone"/>
                                         <p:inputText id="primaryPhone" value="#{supplierController.selectedSupplier.primaryPhone}" required="true" />
                                         <p:outputLabel for="@next" value="Alternate Phone"/>
-                                        <p:inputText id="altphone" value="#{supplierController.selectedSupplier.alternatePhone}" required="true" />
+                                        <p:inputText id="altphone" value="#{supplierController.selectedSupplier.alternatePhone}" required="false" />
                                         <p:outputLabel for="@next" value="Email"/>
-                                        <p:inputText id="email" value="#{supplierController.selectedSupplier.email}" required="true" />
+                                        <p:inputText id="email" value="#{supplierController.selectedSupplier.email}" required="false" validatorMessage="Email is not valid" >
+                                             <f:validateRegex pattern="^$|[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+
+                                        </p:inputText>
+                                       
+                                        <p:outputLabel />
+                                        <p:outputLabel />
+                                        <p:outputLabel />
+                                        <p:outputLabel />
+                                        <p:outputLabel />
+                                        <p:message for="email" />
 
                                         <p:outputLabel for="@next" value="Contact Person 1 Name"/>
                                         <p:inputText id="contName1" value="#{supplierController.selectedSupplier.contactName1}" required="true" />
@@ -239,19 +249,19 @@
                                         <p:inputText id="cont1Phone" value="#{supplierController.selectedSupplier.contact1Phone}" required="true" />
 
                                         <p:outputLabel for="@next" value="Contact 1 Alternate Phone"/>
-                                        <p:inputText id="cont1altPhone" value="#{supplierController.selectedSupplier.contact1AlternatePhone}" required="true" />
+                                        <p:inputText id="cont1altPhone" value="#{supplierController.selectedSupplier.contact1AlternatePhone}" required="false" />
 
                                         <p:outputLabel for="@next" value="Contact Person 2 Name"/>
-                                        <p:inputText id="contName2" value="#{supplierController.selectedSupplier.contactName2}" required="true" />
+                                        <p:inputText id="contName2" value="#{supplierController.selectedSupplier.contactName2}" required="false" />
 
                                         <p:outputLabel for="@next" value="Contact 2 Phone"/>
-                                        <p:inputText id="cont2Phone" value="#{supplierController.selectedSupplier.contact2Phone}" required="true" />
+                                        <p:inputText id="cont2Phone" value="#{supplierController.selectedSupplier.contact2Phone}" required="false" />
                                         <p:outputLabel for="@next" value="Contact 2 Alternate Phone"/>
-                                        <p:inputText id="cont2altPhone" value="#{supplierController.selectedSupplier.contact2AlternatePhone}" required="true" />
+                                        <p:inputText id="cont2altPhone" value="#{supplierController.selectedSupplier.contact2AlternatePhone}" required="false" />
 
 
                                         <p:outputLabel for="@next" value="GST No."/>
-                                        <p:inputText id="gstNo" value="#{supplierController.selectedSupplier.gstNo}" required="true" />
+                                        <p:inputText id="gstNo" value="#{supplierController.selectedSupplier.gstNo}" required="false" />
 
 
                                         <p:outputLabel for="@next" value="Status"/>

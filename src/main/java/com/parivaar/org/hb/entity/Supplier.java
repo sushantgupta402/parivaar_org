@@ -7,6 +7,7 @@ package com.parivaar.org.hb.entity;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -104,6 +105,9 @@ public class Supplier implements Serializable {
       
        @Column(name = "pincode")
     private String pinCode;
+       
+        @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,mappedBy = "supplier")
+     private List<Transactions> transactions =new ArrayList<>();
 
     public Supplier() {
     }
@@ -321,6 +325,16 @@ public class Supplier implements Serializable {
     public void setPinCode(String pinCode) {
         this.pinCode = pinCode;
     }
+
+    public List<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
+    }
+    
+    
 
   
 
