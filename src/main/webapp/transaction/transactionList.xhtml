@@ -50,7 +50,7 @@
 
                         <p:dataTable id="dt-products" widgetVar="dtProducts" var="txn" value="#{transactionController.allTransactions}"
                                      reflow="true" styleClass="products-table" selection="#{transactionController.selectedTransactions}"
-                                     rowKey="#{txn.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                                     rowKey="#{txn.id}" paginator="true" rows="5" rowSelectMode="add" paginatorPosition="bottom" draggableColumns="true" resizableColumns="true" >
                             <f:facet name="header">
                                 <div class="products-table-header">
                                     <span style="font-weight: bold">Suppliers</span>
@@ -70,25 +70,38 @@
                             <p:column headerText="Transaction ID" sortBy="#{txn.transactionId}" filterBy="#{txn.transactionId}">
                                 <h:outputText value="#{txn.transactionId}"  />
                             </p:column>
+                            
+                             <p:column  exportable="true" headerText="Date">
+                                <h:outputText value="#{txn.formattedDate}" />
+                            </p:column>
+                            
+                             <p:column   exportable="true" headerText="Branch">
+                                 <h:outputText value="#{txn.branch.name}" />
+                            </p:column>
 
                             <p:column headerText="Item Name" sortBy="#{txn.itemName}" filterBy="#{txn.itemName}">
                                 <h:outputText value="#{txn.itemName}" />
                             </p:column>
-
-
-                            <p:column  visible="false" exportable="true" headerText="Transaction Type">
-                                <h:outputText value="#{txn.transactionType}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Branch">
-                                <h:outputText value="#{txn.branch}" />
-                            </p:column>
-                            <p:column  visible="false" exportable="true" headerText="Date">
-                                <h:outputText value="#{txn.formattedDate}" />
+                            <p:column  exportable="true" headerText="Opening Balance">
+                                <h:outputText value="#{txn.openingBalance}" />
                             </p:column>
 
+                            <p:column   exportable="true" headerText="Transaction Type">
+                                <h:outputText value="#{txn.transactionType.name}" />
+                            </p:column>
+                            <p:column   exportable="true" headerText="Quantity">
+                                <h:outputText value="#{txn.itemQuantity}" />
+                            </p:column>
+                            <p:column   exportable="true" headerText="Quantity Unit">
+                                <h:outputText value="#{txn.item.quantityMeasuredIn}" />
+                            </p:column>
+                            <p:column   exportable="true" headerText="Reamrks">
+                                <h:outputText value="#{txn.details1}" />
+                            </p:column>
 
-                            <p:column headerText="Time" sortBy="#{txn.time}" filterBy="#{txn.time}">
-                                <h:outputText value="#{txn.time}" />
+
+                           <p:column  exportable="true" headerText="Closing Balance">
+                               <h:outputText value="#{txn.closingBalance}" />
                             </p:column>
 
 
