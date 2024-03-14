@@ -4,7 +4,6 @@
  */
 package com.parivaar.org.controller;
 
-
 import com.parivaar.org.dao.ItemDao;
 import com.parivaar.org.dao.StateDao;
 import com.parivaar.org.dao.SupplierDao;
@@ -22,14 +21,18 @@ import com.parivaar.org.pojo.TransactionPojo;
 import com.parivaar.org.pojo.TransactionTypesPojo;
 import com.parivaar.org.util.TransactionUtil;
 import com.parivaar.org.util.ULIDGenerator;
+import java.io.IOException;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.inject.Inject;
@@ -48,33 +51,33 @@ public class TransactionController implements Serializable {
      */
     public TransactionController() {
     }
-    
-     private List<TransactionPojo> allTransactions;
-     
-     private TransactionPojo selectedTransaction;
-  
+
+    private List<TransactionPojo> allTransactions;
+
+    private TransactionPojo selectedTransaction;
+
     private List<TransactionPojo> selectedTransactions;
-    
+
     private long item;
-    
+
     private List<ItemPojo> items;
-    
+
     private long transactionType;
-    
+
     private List<TransactionTypesPojo> transactionTypes;
-    
+
     private Long state;
-    
+
     private List<StatesPojo> states;
-    
+
     private Double quantity;
-    
+
     private String errorMessage;
-    
-    private Boolean usageFieldAvailable=false;
-    
+
+    private Boolean usageFieldAvailable = false;
+
     private Long selectedSupplier;
-    
+
     private List<SupplierPojo> suppliers;
 
     public TransactionPojo getSelectedTransaction() {
@@ -180,167 +183,170 @@ public class TransactionController implements Serializable {
     public void setSuppliers(List<SupplierPojo> suppliers) {
         this.suppliers = suppliers;
     }
-    
-    
-    
-    
 
-   
-    
     public void openNew() {
-        
+
         selectedTransaction = new TransactionPojo();
-        String transactionId =  generateTransactionId();
+        this.item = 0;
+        String transactionId = generateTransactionId();
         selectedTransaction.setTransactionId(transactionId);
         selectedTransaction.setItemQuantity(0.0);
         quantity = 0.0;
-        if(items ==null || items.isEmpty() ){
+        if (items == null || items.isEmpty()) {
             items = itemDao.listItems();
         }
-        if(transactionTypes ==null || transactionTypes.isEmpty() ){
+        if (transactionTypes == null || transactionTypes.isEmpty()) {
             transactionTypes = transactionDao.getTransactionTypes();
         }
-        
-         if(states ==null || states.isEmpty() ){
+
+        if (states == null || states.isEmpty()) {
             states = transactionDao.getStates();
         }
-         
-          if(suppliers ==null || suppliers.isEmpty() ){
+
+        if (suppliers == null || suppliers.isEmpty()) {
             suppliers = supplierDao.listSuppliers();
         }
-      
+
         PrimeFaces.current().ajax().update("dialogs:manage-product-content");
         PrimeFaces.current().executeScript("PF('manageProductDialog').show()");
-        
+
     }
-    
-    public void onItemSelection(){
+
+    public void onItemSelection() {
         TransactionPojo latestTransaction = transactionDao.fetchLatestTransactionByItem(item);
         Item itm = itemDao.getItemById(item);
-        if(itm != null){
+        if (itm != null) {
             selectedTransaction.setItem(itm);
             selectedTransaction.setItemName(itm.getName());
         }
-        if(latestTransaction ==  null){
+        if (latestTransaction == null) {
             selectedTransaction.setOpeningBalance(0.0);
             selectedTransaction.setClosingBalance(0.0);
-        }else{
+        } else {
             selectedTransaction.setOpeningBalance(latestTransaction.getClosingBalance());
             selectedTransaction.setClosingBalance(latestTransaction.getClosingBalance());
         }
     }
-    
-    public void handleQuantityEvent(){
-        
-        TransactionTypes txn =transactionDao.getTransactionTypeById(transactionType);
+
+    public void handleQuantityEvent() {
+
+        TransactionTypes txn = transactionDao.getTransactionTypeById(transactionType);
         TransactionTypesPojo txnPojo = null;
-        if(txn !=null){
+        if (txn != null) {
             txnPojo = TransactionUtil.entityToPojo(txn);
         }
-        
-        if(selectedTransaction.getItemQuantity() != null){
-            switch(txnPojo.getCode()){
-            case "AOS":
-                selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance()+selectedTransaction.getItemQuantity());
-                
-                break;
- 
+
+        if (selectedTransaction.getItemQuantity() != null) {
+            switch (txnPojo.getCode()) {
+                case "AOS" ->
+                    selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance() + selectedTransaction.getItemQuantity());
+                case "CON" ->
+                    selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance() - selectedTransaction.getItemQuantity());
+
+                case "PUR" ->
+                    selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance() + selectedTransaction.getItemQuantity());
+
+                case "WLD" ->
+                    selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance() - selectedTransaction.getItemQuantity());
+                case "REC" ->
+                    selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance() + selectedTransaction.getItemQuantity());
+                case "RET" ->
+                    selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance() - selectedTransaction.getItemQuantity());
+                default ->
+                    selectedTransaction.setClosingBalance(selectedTransaction.getOpeningBalance());
+
+            }
+
         }
-        }
-        
-        
+
     }
-    
-     public void handlePerUnitCostEvent(){
-        
-        if(selectedTransaction.getPerUnitCost()!= null && selectedTransaction.getItemQuantity()!=null){
-            
-           selectedTransaction.setTotalCost(selectedTransaction.getPerUnitCost() * selectedTransaction.getItemQuantity());
-        
-        }else{
+
+    public void handlePerUnitCostEvent() {
+
+        if (selectedTransaction.getPerUnitCost() != null && selectedTransaction.getItemQuantity() != null) {
+
+            selectedTransaction.setTotalCost(selectedTransaction.getPerUnitCost() * selectedTransaction.getItemQuantity());
+
+        } else {
             selectedTransaction.setTotalCost(0.0);
         }
-        
-        
+
     }
-    
-    public void onTransactionSelection(){
-        TransactionTypes txn =transactionDao.getTransactionTypeById(transactionType);
+
+    public void onTransactionSelection() {
+        TransactionTypes txn = transactionDao.getTransactionTypeById(transactionType);
         TransactionTypesPojo txnPojo = null;
-         if(txn !=null){
+        if (txn != null) {
             txnPojo = TransactionUtil.entityToPojo(txn);
             this.selectedTransaction.setTransactionType(txn);
         }
-        switch(txnPojo.getCode()){
+        switch (txnPojo.getCode()) {
             case "AOS":
-                this.usageFieldAvailable=false;
+                this.usageFieldAvailable = false;
                 break;
             case "CON":
-                this.usageFieldAvailable=true;
+                this.usageFieldAvailable = true;
                 break;
             case "PUR":
-                this.usageFieldAvailable=false;
+                this.usageFieldAvailable = false;
                 break;
             case "WLD":
-                this.usageFieldAvailable=true;
+                this.usageFieldAvailable = true;
                 break;
             case "REC":
-                this.usageFieldAvailable=false;
+                this.usageFieldAvailable = false;
                 break;
             case "RET":
-                this.usageFieldAvailable=true;
+                this.usageFieldAvailable = true;
                 break;
             default:
-                 this.usageFieldAvailable=false;
- 
+                this.usageFieldAvailable = false;
+
         }
     }
-    
-    public void handleDayNightUsageEvent(){
-        if(selectedTransaction != null && selectedTransaction.getDayUsage() != null && selectedTransaction.getNightUsage() != null && selectedTransaction.getItemQuantity()!=null){
-            if(selectedTransaction.getItemQuantity() != (selectedTransaction.getDayUsage() + selectedTransaction.getNightUsage())){
+
+    public void handleDayNightUsageEvent() {
+        if (selectedTransaction != null && selectedTransaction.getDayUsage() != null && selectedTransaction.getNightUsage() != null && selectedTransaction.getItemQuantity() != null) {
+            if (selectedTransaction.getItemQuantity() != (selectedTransaction.getDayUsage() + selectedTransaction.getNightUsage())) {
                 this.errorMessage = "The Sum of DayUsage and NightUsage should match the Item Quantity";
-               
-                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(this.errorMessage));
-                  PrimeFaces.current().ajax().update("dialogs:messagesDialog");
+
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(this.errorMessage));
+                PrimeFaces.current().ajax().update("dialogs:messagesDialog");
             }
         }
     }
-    
-   
-    
-     public void saveTransaction() {
-         if(this.selectedSupplier != null){
-             Supplier supp = supplierDao.getSupplierById(this.selectedSupplier);
-             if(supp !=null){
-                 this.selectedTransaction.setSupplier(supp);
-             }
-         }
-         if(this.state != null){
-             States state = stateDao.getStateById(this.state);
-             if(state !=null){
-                 this.selectedTransaction.setBranch(state);
-             }
-         }
-        if (this.selectedTransaction.getId()== null) {
-            transactionDao.saveTransaction(selectedTransaction);
-            
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Transaction Added"));
+
+    public void saveTransaction() {
+        if (this.selectedSupplier != null) {
+            Supplier supp = supplierDao.getSupplierById(this.selectedSupplier);
+            if (supp != null) {
+                this.selectedTransaction.setSupplier(supp);
+            }
         }
-        else {
-          transactionDao.saveTransaction(selectedTransaction);
+        if (this.state != null) {
+            States state = stateDao.getStateById(this.state);
+            if (state != null) {
+                this.selectedTransaction.setBranch(state);
+            }
+        }
+        if (this.selectedTransaction.getId() == null) {
+            transactionDao.saveTransaction(selectedTransaction);
+
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Transaction Added"));
+        } else {
+            transactionDao.saveTransaction(selectedTransaction);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Transaction Updated"));
         }
         lstTransactions();
         PrimeFaces.current().executeScript("PF('manageProductDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
-     
-     public void deleteSupplier() {
+
+    public void deleteSupplier() {
         transactionDao.deleteTransaction(selectedTransaction);
         lstTransactions();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Transaction Removed"));
-       // PrimeFaces.current().executeScript("PF('deleteProductDialog').hide()");
+        // PrimeFaces.current().executeScript("PF('deleteProductDialog').hide()");
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
     }
 
@@ -352,37 +358,39 @@ public class TransactionController implements Serializable {
         this.allTransactions = allTransactions;
     }
 
-   
-    
-     @PostConstruct
-    public void constructData(){
+    @PostConstruct
+    public void constructData() {
         lstTransactions();
         selectedTransaction = new TransactionPojo();
     }
-    
-   
-    
+
     @Inject
     private TransactionDao transactionDao;
-    
+
     @Inject
     private ItemDao itemDao;
-    
+
     @Inject
     private SupplierDao supplierDao;
-    
-     @Inject
+
+    @Inject
     private StateDao stateDao;
-    
-    public void lstTransactions(){
+
+    public void lstTransactions() {
         allTransactions = transactionDao.listTransactions();
-        
+
     }
-    
-    public String transactionHomeDestination(){
-        return "transaction/transactionHome";
+
+    public void transactionHomeDestination() {
+        try {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+                  ec.redirect(ec.getRequestContextPath()+"/faces/transaction/transactionList.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(TransactionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     public String getDeleteButtonMessage() {
         if (hasSelectedTransactions()) {
             int size = this.selectedTransactions.size();
@@ -395,8 +403,8 @@ public class TransactionController implements Serializable {
     public boolean hasSelectedTransactions() {
         return this.selectedTransactions != null && !this.selectedTransactions.isEmpty();
     }
-    
-     public void deleteSelectedTransactions() {
+
+    public void deleteSelectedTransactions() {
         transactionDao.deleteTransactions(selectedTransactions);
         lstTransactions();
         this.selectedTransactions = null;
@@ -410,7 +418,4 @@ public class TransactionController implements Serializable {
         return ulid;
     }
 
-    
-    
-    
 }

@@ -6,17 +6,21 @@ package com.parivaar.org.controller;
 
 import com.parivaar.org.dao.ItemDao;
 import com.parivaar.org.pojo.ItemPojo;
+import java.io.IOException;
 
 
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 
 import javax.inject.Named;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import javax.inject.Inject;
@@ -104,8 +108,15 @@ public class ItemController implements Serializable {
         
     }
     
-    public String itemHomeDestination(){
-        return "item/itemHome";
+    public void itemHomeDestination(){
+        try {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+
+                  ec.redirect(ec.getRequestContextPath()+"/faces/item/itemList.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(TransactionController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
     
      public String itemHistoryDestination(){

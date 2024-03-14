@@ -151,7 +151,7 @@
                                         </p:selectOneMenu>
 
                                         <p:outputLabel for="date" value="Date"/>
-                                        <p:datePicker id="date" value="#{transactionController.selectedTransaction.transactionDate}" />
+                                        <p:datePicker id="date" value="#{transactionController.selectedTransaction.transactionDate}" style="width:150px" />
 
 
                                         <p:outputLabel for="time" value="Time:"/>
@@ -166,36 +166,36 @@
                                         </p:selectOneMenu>
 
                                         <p:outputLabel for="quantity" value="Item Quantity"/>
-                                        <p:inputText id="quantity" value="#{transactionController.selectedTransaction.itemQuantity}">
+                                        <p:inputText id="quantity" value="#{transactionController.selectedTransaction.itemQuantity}" style="width:150px">
                                             <p:ajax event="keyup" update="closingbalance" listener="#{transactionController.handleQuantityEvent()}"/>
                                         </p:inputText>
 
                                         <p:outputLabel for="unit" value="Unit"/>
-                                        <p:inputText id="unit" value="#{transactionController.selectedTransaction.item.quantityMeasuredIn}"  readonly="true"  />
+                                        <p:inputText id="unit" value="#{transactionController.selectedTransaction.item.quantityMeasuredIn}"  readonly="true" style="width:150px" />
 
 
 
 
                                         <p:outputLabel for="openingbalance" value="Opening Balance:"/>
-                                        <p:inputText id="openingbalance" value="#{transactionController.selectedTransaction.openingBalance}"  readonly="true"  />
+                                        <p:inputText id="openingbalance" value="#{transactionController.selectedTransaction.openingBalance}"  readonly="true" style="width:150px"  />
                                         <p:outputLabel for="closingbalance" value="Closing Balance:"/>
-                                        <p:inputText id="closingbalance" value="#{transactionController.selectedTransaction.closingBalance}"  readonly="true"  />
+                                        <p:inputText id="closingbalance" value="#{transactionController.selectedTransaction.closingBalance}"  readonly="true" style="width:150px"  />
 
                                         <p:outputLabel for="@next" value="Details/Remarks1"/>
-                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details1}"/>
+                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details1}" style="width:150px"/>
                                         <p:outputLabel for="@next" value="Details/Remarks2"/>
-                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details2}"/> 
+                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details2}" style="width:150px"/> 
                                          <p:outputLabel for="@next" value="Details/Remarks3"/>
-                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details3}"/>
+                                        <p:inputTextarea rows="3" value="#{transactionController.selectedTransaction.details3}" style="width:150px"/>
                                         
                                         
                                        
                                         <p:outputLabel for="dayusage" value="Day Usage"/>
-                                        <p:inputText id="dayusage" value="#{transactionController.selectedTransaction.dayUsage}" readonly="#{ not transactionController.usageFieldAvailable}" >
+                                        <p:inputText id="dayusage" value="#{transactionController.selectedTransaction.dayUsage}" readonly="#{ not transactionController.usageFieldAvailable}" style="width:150px" >
                                             <p:ajax event="mouseout"  listener="#{transactionController.handleDayNightUsageEvent()}"/>
                                         </p:inputText>
                                         <p:outputLabel for="nightusage" value="Night Usage"/>
-                                        <p:inputText id="nightusage" value="#{transactionController.selectedTransaction.nightUsage}" readonly="#{ not transactionController.usageFieldAvailable}" >
+                                        <p:inputText id="nightusage" value="#{transactionController.selectedTransaction.nightUsage}" readonly="#{ not transactionController.usageFieldAvailable}" style="width:150px" >
                                           
                                             <p:ajax event="mouseout"  listener="#{transactionController.handleDayNightUsageEvent()}"/>
                                         </p:inputText>
@@ -208,12 +208,12 @@
                                         </p:selectOneMenu>
                                            
                                         <p:outputLabel for="costperunit" value="Per Unit Cost"/>
-                                        <p:inputText id="costperunit" value="#{transactionController.selectedTransaction.perUnitCost}">
+                                        <p:inputText id="costperunit" value="#{transactionController.selectedTransaction.perUnitCost}" style="width:150px">
                                             <p:ajax event="keyup" update="totalcost" listener="#{transactionController.handlePerUnitCostEvent()}"/>
                                         </p:inputText>
                                            
                                             <p:outputLabel for="totalcost" value="Total Cost:"/>
-                                            <p:inputText id="totalcost" value="#{transactionController.selectedTransaction.totalCost}"  readonly="true"  />
+                                            <p:inputText id="totalcost" value="#{transactionController.selectedTransaction.totalCost}"  readonly="true" style="width:150px" />
 
 
 

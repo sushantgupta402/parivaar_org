@@ -18,8 +18,8 @@
 
         <div id="top">
             <ui:insert name="top"></ui:insert>
-            <h:graphicImage  
-                url="resources/images/parivaarLogo.png" />
+            <img src="#{request.contextPath}/resources/images/parivaarLogo.png"/>
+           
             <div class="card">
     <h:form>
         <p:growl id="messages"/>
@@ -45,9 +45,9 @@
             <p:menuitem value="Students" action="#{studentController.studentHomeDestination()}" icon="pi pi-fw pi-users" />
             <p:submenu label="Stock Management" icon="pi pi-fw pi-calendar">
                
-                    <p:menuitem value="Supplier" action="#{supplierController.supplierHomeDestination()}" icon="pi pi-fw pi-power-off" />
-                    <p:menuitem value="Items" action="#{itemController.itemHomeDestination()}" icon="pi pi-fw pi-power-off" />
-                    <p:menuitem value="Transaction" action="#{transactionController.transactionHomeDestination()}" icon="pi pi-fw pi-power-off" />
+                    <p:menuitem value="Supplier" action="#{supplierController.supplierHomeDestination()}" icon="pi pi-id-card" />
+                    <p:menuitem value="Items" action="#{itemController.itemHomeDestination()}" icon="pi pi-shopping-cart" />
+                    <p:menuitem value="Transaction" action="#{transactionController.transactionHomeDestination()}" icon="pi pi-bars" />
                
             </p:submenu>
            
