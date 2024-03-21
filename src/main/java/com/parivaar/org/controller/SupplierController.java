@@ -5,7 +5,9 @@
 package com.parivaar.org.controller;
 
 import com.parivaar.org.dao.SupplierDao;
+
 import com.parivaar.org.pojo.SupplierPojo;
+import com.parivaar.org.util.States;
 import java.io.IOException;
 
 import java.io.Serializable;
@@ -42,6 +44,8 @@ public class SupplierController implements Serializable {
      private SupplierPojo selectedSupplier;
   
     private List<SupplierPojo> selectedSuppliers;
+    
+    private List<String> stateList = States.stateList;
 
     public SupplierPojo getSelectedSupplier() {
         return selectedSupplier;
@@ -148,6 +152,14 @@ public class SupplierController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Products Removed"));
         PrimeFaces.current().ajax().update("form:messages", "form:dt-products");
         PrimeFaces.current().executeScript("PF('dtProducts').clearFilters()");
+    }
+
+    public List<String> getStateList() {
+        return stateList;
+    }
+
+    public void setStateList(List<String> stateList) {
+        this.stateList = stateList;
     }
 
     
