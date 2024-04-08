@@ -54,10 +54,22 @@
 
             <f:facet name="options">
                 <div class="ui-input-icon-left mr-2">
+                       <style>
+    button.ui-button {
+        margin-right: .5rem;
+    }
+</style>
                     <i class="pi pi-fw pi-search" />
                     <p:inputText placeholder="Search"/>
-                </div>
-                <p:button value="Logout" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                    
+                     <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{loginBean.logout()}"  styleClass="ui-button-info"/>
+                     <p:commandButton value="Change Passowrd" icon="pi pi-fw pi-undo" actionListener="#{changePass.openNew()}"
+                                                 update=":dialogs:manage-product-content"
+                                                 styleClass="ui-button-info" style="margin-right: .5rem">
+                                   
+                                </p:commandButton>
+
+                  </div>
             </f:facet>
         </p:menubar>
     </h:form>
@@ -74,7 +86,56 @@
         <div id="bottom">
             <ui:insert name="bottom"></ui:insert>
         </div>
+<h:form id="dialogs">
+                        <p:growl id="messagesDialog" showDetail="true" />
+                        <p:dialog header="Change Password" showEffect="fade" modal="true" widgetVar="manageProductDialog" 
+                                  minHeight="40" width="40%" 
+                                  
+                                  responsive="true" draggable="true" resizable="true" >
+                            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                                <p:outputPanel rendered="#{not empty changePass.changePassObj}">
+                                    <p:panelGrid columns="1"
+                                                 
+                                                 layout="grid"
+                                                 styleClass="ui-panelgrid-blank ui-fluid"
+                                                 
+                                                 style="border:0px none; background-color:transparent;">
 
+
+
+                                        <p:outputLabel for="@next" value="Old Password"/>
+                                        <p:password id="oldPass" value="#{changePass.changePassObj.oldPassowrd}" redisplay="true" required="true"/>
+                                    
+                                        <p:outputLabel for="@next" value="New Password"/>
+                                        <p:password id="newPass1" value="#{changePass.changePassObj.nuePassowrd}" match="newPass2" label="NewPassword 1" feedback="true" inline="true" required="true" />
+                                        <p:outputLabel for="@next" value="New Password"/>
+                                        <p:password id="newPass2" value="#{changePass.changePassObj.nuePassowrd}" label="NewPassword 2" redisplay="true"  required="true" />
+                                        <p:outputLabel />
+                                        <p:outputLabel />
+                                       
+<p:messages id="messages" showDetail="true"  >
+            <p:autoUpdate/>
+        </p:messages>
+                                       
+
+                                    </p:panelGrid>
+
+
+
+
+                                </p:outputPanel>
+                            </p:outputPanel>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{changePass.changePass()}"
+                                                 update="manage-product-content" process="manage-product-content @this" />
+                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                                 class="ui-button-secondary" type="button" />
+                            </f:facet>
+                        </p:dialog>
+
+                          
+                    </h:form>
     </h:body>
 
 </html>
