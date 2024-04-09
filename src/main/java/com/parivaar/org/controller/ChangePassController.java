@@ -96,8 +96,8 @@ public class ChangePassController implements Serializable {
         
         changePassObj = new ChangePassPojo();
       
-        PrimeFaces.current().ajax().update("dialogs:manage-product-content");
-        PrimeFaces.current().executeScript("PF('manageProductDialog').show()");
+        PrimeFaces.current().ajax().update("dialogs:change-password-show");
+        PrimeFaces.current().executeScript("PF('changePasswordDialog').show()");
         
     }
     
