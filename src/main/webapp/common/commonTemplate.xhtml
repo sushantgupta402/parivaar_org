@@ -64,7 +64,7 @@
                     
                      <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{loginBean.logout()}"  styleClass="ui-button-info"/>
                      <p:commandButton value="Change Passowrd" icon="pi pi-fw pi-undo" actionListener="#{changePass.openNew()}"
-                                                 update=":dialogs:manage-product-content"
+                                                 update=":changedialogs:change-password-show"
                                                  styleClass="ui-button-info" style="margin-right: .5rem">
                                    
                                 </p:commandButton>
@@ -86,13 +86,13 @@
         <div id="bottom">
             <ui:insert name="bottom"></ui:insert>
         </div>
-<h:form id="dialogs">
+<h:form id="changedialogs">
                         <p:growl id="messagesDialog" showDetail="true" />
-                        <p:dialog header="Change Password" showEffect="fade" modal="true" widgetVar="manageProductDialog" 
+                        <p:dialog header="Change Password" showEffect="fade" modal="true" widgetVar="changePasswordDialog" 
                                   minHeight="40" width="40%" 
                                   
                                   responsive="true" draggable="true" resizable="true" >
-                            <p:outputPanel id="manage-product-content" class="ui-fluid">
+                            <p:outputPanel id="change-password-show" class="ui-fluid">
                                 <p:outputPanel rendered="#{not empty changePass.changePassObj}">
                                     <p:panelGrid columns="1"
                                                  
@@ -128,8 +128,8 @@
 
                             <f:facet name="footer">
                                 <p:commandButton value="Save" icon="pi pi-check" actionListener="#{changePass.changePass()}"
-                                                 update="manage-product-content" process="manage-product-content @this" />
-                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageProductDialog').hide()"
+                                                 update="change-password-show" process="change-password-show @this" />
+                                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('changePasswordDialog').hide()"
                                                  class="ui-button-secondary" type="button" />
                             </f:facet>
                         </p:dialog>
