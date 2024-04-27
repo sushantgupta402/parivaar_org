@@ -79,7 +79,10 @@ public class LoginController implements Serializable {
     }
      
     
- 
+ public String getSessionedUname() {
+     HttpSession session = Util.getSession();
+        return session.getAttribute("username").toString();
+    }
     
     public String cancle(){
         return "home";
