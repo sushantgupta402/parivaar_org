@@ -62,8 +62,9 @@
                     <i class="pi pi-fw pi-search" />
                     <p:inputText placeholder="Search"/>
                     
+                    <p:outputLabel for="@next" value="Logged in : #{loginBean.getUname()}" style="color: black; margin-left: .5rem; margin-right: .5rem"/>
                      <p:commandButton value="Logout" icon="pi pi-fw pi-sign-out" action="#{loginBean.logout()}"  styleClass="ui-button-info"/>
-                     <p:commandButton value="Change Passowrd" icon="pi pi-fw pi-undo" actionListener="#{changePass.openNew()}"
+                     <p:commandButton value="Change Password" icon="pi pi-fw pi-undo" actionListener="#{changePass.openNew()}"
                                                  update=":changedialogs:change-password-show"
                                                  styleClass="ui-button-info" style="margin-right: .5rem">
                                    
