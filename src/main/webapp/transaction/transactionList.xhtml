@@ -32,16 +32,13 @@
                                                  styleClass="ui-button-success" style="margin-right: .5rem">
                                     <!--<p:resetInput target=":dialogs:manage-product-content" />-->
                                 </p:commandButton>
-                                <p:commandButton id="delete-products-button" value="#{transactionController.deleteButtonMessage}"
-                                                 icon="pi pi-trash" actionListener="#{transactionController.deleteSelectedTransactions()}"
-                                                 styleClass="ui-button-danger" disabled="#{!transactionController.hasSelectedTransactions()}" update="@this">
-                                    <p:confirm header="Confirmation" message="Delete the selected products?"
-                                               icon="pi pi-exclamation-triangle" />
-                                </p:commandButton>
+                                
+                                   
+                               
                             </p:toolbarGroup>
                             <p:toolbarGroup align="right">
 
-                                <p:commandButton value="XLSX" styleClass="mr-2 mb-2">
+                                <p:commandButton value="Export" styleClass="mr-2 mb-2">
                                     <p:dataExporter type="xlsxstream" target="dt-products" fileName="transaction_list"/>
                                 </p:commandButton>
 
@@ -60,22 +57,18 @@
                                 </div>
                             </f:facet>
 
-                            <p:ajax event="rowSelect" update=":form:delete-products-button" />
-                            <p:ajax event="rowUnselect" update=":form:delete-products-button" />
-                            <p:ajax event="rowSelectCheckbox" update=":form:delete-products-button" />
-                            <p:ajax event="rowUnselectCheckbox" update=":form:delete-products-button" />
-                            <p:ajax event="toggleSelect" update=":form:delete-products-button" />
+                           
 
                             <p:column selectionMode="multiple" exportable="true"></p:column>
                             <p:column headerText="Transaction ID" sortBy="#{txn.transactionId}" filterBy="#{txn.transactionId}">
                                 <h:outputText value="#{txn.transactionId}"  />
                             </p:column>
                             
-                             <p:column  exportable="true" headerText="Date">
+                            <p:column  exportable="true" headerText="Date" sortBy="#{txn.transactionDate}">
                                 <h:outputText value="#{txn.formattedDate}" />
                             </p:column>
                             
-                             <p:column   exportable="true" headerText="Branch">
+                             <p:column   exportable="true" headerText="Branch" sortBy="#{txn.branch.name}" filterBy="#{txn.branch.name}">
                                  <h:outputText value="#{txn.branch.name}" />
                             </p:column>
 
@@ -86,22 +79,26 @@
                                 <h:outputText value="#{txn.openingBalance}" />
                             </p:column>
 
-                            <p:column   exportable="true" headerText="Transaction Type">
+                            <p:column   exportable="true" headerText="Transaction Type" sortBy="#{txn.transactionType.name}" filterBy="#{txn.transactionType.name}" >
                                 <h:outputText value="#{txn.transactionType.name}" />
                             </p:column>
                             <p:column   exportable="true" headerText="Quantity">
                                 <h:outputText value="#{txn.itemQuantity}" />
                             </p:column>
-                            <p:column   exportable="true" headerText="Quantity Unit">
+                            <p:column   exportable="true" headerText="Quantity Unit" sortBy="#{txn.item.quantityMeasuredIn}" filterBy="#{txn.item.quantityMeasuredIn}">
                                 <h:outputText value="#{txn.item.quantityMeasuredIn}" />
                             </p:column>
-                            <p:column   exportable="true" headerText="Reamrks">
+                            <p:column   exportable="true" headerText="Rermarks" sortBy="#{txn.details1}" filterBy="#{txn.details1}">
                                 <h:outputText value="#{txn.details1}" />
                             </p:column>
 
 
                            <p:column  exportable="true" headerText="Closing Balance">
                                <h:outputText value="#{txn.closingBalance}" />
+                            </p:column>
+                            
+                             <p:column   exportable="true" headerText="TransactionBy" sortBy="#{txn.transactionBy}" filterBy="#{txn.transactionBy}">
+                                 <h:outputText value="#{txn.transactionBy}" />
                             </p:column>
 
 
@@ -114,11 +111,7 @@
                                     <f:setPropertyActionListener value="#{txn}" target="#{transactionController.selectedTransaction}" />
                                     <p:resetInput target=":dialogs:manage-product-content" />
                                 </p:commandButton>
-                                <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
-                                                 process="@this"
-                                                 oncomplete="PF('deleteProductDialog').show()">
-                                    <f:setPropertyActionListener value="#{txn}" target="#{transactionController.selectedTransaction}" />
-                                </p:commandButton>
+                                
                             </p:column>
 
                         </p:dataTable>
@@ -246,14 +239,7 @@
                             </f:facet>
                         </p:dialog>
 
-                        <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
-                                         message="Delete the product?" header="Confirm" severity="warn">
-                            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{supplierController.deleteSupplier()}"
-                                             process="@this" update=":form:delete-products-button"
-                                             oncomplete="PF('deleteProductDialog').hide()" />
-                            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                                             onclick="PF('deleteProductDialog').hide()" />
-                        </p:confirmDialog>
+                       
 
                         <p:confirmDialog global="true" showEffect="fade" width="300">
                             <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />

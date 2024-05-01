@@ -4,6 +4,7 @@
  */
 package com.parivaar.org.dao.impl;
 
+import com.parivaar.org.Util;
 import com.parivaar.org.dao.ItemDao;
 import com.parivaar.org.dao.TransactionDao;
 import com.parivaar.org.hb.entity.Item;
@@ -66,9 +67,11 @@ public class TransactionDaoImpl implements TransactionDao {
 
     @Override
     public void saveTransaction(TransactionPojo pojo) {
+        String loggedUser = Util.getUserName();
        if (null == pojo.getId()) {
             Transactions ent = new Transactions();
             pojo.setTransactionDate(new Date());
+            pojo.setTransactionBy(loggedUser);
             ent = TransactionUtil.pojoToEntity(pojo);
             
 

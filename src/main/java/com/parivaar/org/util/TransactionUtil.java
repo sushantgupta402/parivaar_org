@@ -50,6 +50,7 @@ public class TransactionUtil {
         pojo.setItemQuantity(ent.getItemQuantity());
         pojo.setDayUsage(ent.getDayUsage());
         pojo.setNightUsage(ent.getNightUsage());
+         pojo.setTransactionBy(ent.getTransactionBy());
        
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");  
         if(ent.getTransactionDate()!= null){
@@ -91,6 +92,7 @@ public class TransactionUtil {
         ent.setItemQuantity(pojo.getItemQuantity());
         ent.setDayUsage(pojo.getDayUsage());
         ent.setNightUsage(pojo.getNightUsage());
+        ent.setTransactionBy(pojo.getTransactionBy());
         return ent;
 
     }

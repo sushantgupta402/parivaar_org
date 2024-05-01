@@ -82,6 +82,8 @@ public class TransactionPojo implements Serializable {
       
      
     private Double nightUsage;
+    
+    private String transactionBy;
 
     public Long getId() {
         return id;
@@ -242,6 +244,14 @@ public class TransactionPojo implements Serializable {
 
     public void setNightUsage(Double nightUsage) {
         this.nightUsage = nightUsage;
+    }
+
+    public String getTransactionBy() {
+        return transactionBy;
+    }
+
+    public void setTransactionBy(String transactionBy) {
+        this.transactionBy = transactionBy;
     }
     
     

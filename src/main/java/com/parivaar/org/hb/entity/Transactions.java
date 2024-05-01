@@ -95,6 +95,9 @@ public class Transactions implements Serializable {
        
          @Column(name = "itemquantity")
     private Double itemQuantity;
+         
+         @Column(name = "transactionby")
+    private String transactionBy;
        
        
        
@@ -254,6 +257,16 @@ public class Transactions implements Serializable {
     public void setNightUsage(Double nightUsage) {
         this.nightUsage = nightUsage;
     }
+
+    public String getTransactionBy() {
+        return transactionBy;
+    }
+
+    public void setTransactionBy(String transactionBy) {
+        this.transactionBy = transactionBy;
+    }
+    
+    
     
     
     
